@@ -113,7 +113,7 @@ export class TargettedProjectFlow extends GenericFunctions {
           this.apiCallAndNavigate(apiConfig, projectData)
           break;
         case "edit":
-          window.location.href = "/profile-edit"
+          window.location.href = this.getConfigData("redirectionLinks").profilePage
           break;
         default:
           break;
