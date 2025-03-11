@@ -119,7 +119,8 @@ export class SyncService {
         var options = {
           headers: {
             "Content-Type": "multipart/form-data",
-            "Access-Control-Allow-Origin":"*"
+            "Access-Control-Allow-Origin":"*",
+            ...(fileDetails.cloudStorage === "azure" ? { "x-ms-blob-type": "BlockBlob" } : {})
           }
         }
         firstValueFrom(this.customHttp.put(fileDetails.uploadUrl, convertedFile, options)).then(data=>{
