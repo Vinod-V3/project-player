@@ -4,7 +4,7 @@
         <mat-checkbox [(ngModel)]="isChecked" class="mr-3"></mat-checkbox>
         <div>
             <span>{{ popupData.message1 | translate }} </span>
-            <a href="https://shikshalokam.org/mentoring/privacy-policy/" class="text-blue-600" target="_blank">{{ popupData.message2 | translate }}</a>.
+            <a href="{{ contentPolicyLink }}" class="text-blue-600" target="_blank">{{ popupData.message2 | translate }}</a>.
             <span> {{ popupData.message3 | translate }}</span>
         </div>
     </div>
