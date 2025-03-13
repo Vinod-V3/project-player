@@ -73,7 +73,9 @@ export class MainPlayerComponent implements OnInit {
   }
 
   setRoutes(){
-    let routePath = window.location.pathname.slice(1)
+    const baseUrl = document.baseURI.replace(window.location.origin, "");
+    const currentUrl = window.location.href.replace(window.location.origin, "");
+    const routePath = currentUrl.replace(baseUrl, "");
     let newRoutes: Routes = [
       { path: routePath, component: MainPlayerComponent },
       { path: '**', redirectTo: routePath }
