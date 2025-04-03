@@ -14,7 +14,7 @@
             <mat-icon fontIcon="insert_drive_file"></mat-icon>
         }
         }
-        <div class="flex-1 ml-2.5 break-all">{{file.name}}</div>
+        <div class="flex-1 ml-2.5 break-words [word-break:break-word]">{{file.name}}</div>
         <mat-icon fontIcon="cancel" class="cursor-pointer" (click)="removeFile(file,$index)"></mat-icon>
     </mat-card>
 }

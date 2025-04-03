@@ -2,5 +2,5 @@
     @if(isPreview){
         <mat-icon fontIcon="arrow_back" class="cursor-pointer mr-2" (click)="goBack()"></mat-icon>
     }
-    <div class="text-xl font-bold break-all">{{ title | translate }}</div>
+    <div class="text-xl font-bold break-words [word-break:break-word]">{{ title | translate }}</div>
 </div>

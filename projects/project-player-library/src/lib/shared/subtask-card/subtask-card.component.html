@@ -2,7 +2,7 @@
     <div class="sub-task-header">
         <div (click)="editSubTask()">
             <span class="circle"><mat-icon class="primary-icon" fontIcon="radio_button_unchecked"></mat-icon></span>
-            <h4 class="cursor-pointer break-all">{{subTask.name}}</h4>
+            <h4 class="cursor-pointer break-words [word-break:break-word]">{{subTask.name}}</h4>
         </div>
         @if(subTask.isDeletable){
             <span class="delete-icon"><mat-icon (click)="openDialog()" fontIcon="delete"></mat-icon></span>

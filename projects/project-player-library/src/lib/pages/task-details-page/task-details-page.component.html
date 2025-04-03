@@ -1,7 +1,7 @@
 <lib-header [title]="'TASK_DETAILS'" [params]="params"></lib-header>
 <div class="task-details">
     <div class="task-header" (click)="editTask()">
-        <h4 class="break-all">{{task.name}}</h4>
+        <h4 class="break-words [word-break:break-word]">{{task.name}}</h4>
         @if (task.isDeletable) {
             <span class="pl-4"><mat-icon class="primary-icon min-w-6"  fontIcon="edit"></mat-icon></span>
         }

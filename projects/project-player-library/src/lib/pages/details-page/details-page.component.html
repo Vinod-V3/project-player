@@ -1,8 +1,8 @@
 <mat-card class="details-card ">
   <div class="flex justify-between">
     <span class="details-card-header">
-        <h4 class="break-all">{{projectDetails?.title || "Undefined"}}</h4>
-        <p class="break-all text-base text-gray-500">{{projectDetails?.programName}}</p>
+        <h4 class="break-words [word-break:break-word]">{{projectDetails?.title || "Project name"}}</h4>
+        <p class="break-words [word-break:break-word] text-base text-gray-500">{{projectDetails?.programName}}</p>
       </span>
       @if (projectDetails?.certificate) {
         <span class="bg-yellow-400 text-black text-xs rounded p-1 px-2 uppercase mr-4 h-fit self-center">{{ "CERTIFICATE" | translate}}</span>
