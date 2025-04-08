@@ -72,10 +72,15 @@ export class MainPlayerComponent implements OnInit {
     }
   }
 
-  setRoutes(){
-    const baseUrl = document.baseURI.replace(window.location.origin, "");
-    const currentUrl = window.location.href.replace(window.location.origin, "");
-    const routePath = currentUrl.replace(baseUrl, "");
+  setRoutes(isPreview: any = false) {
+    let routePath;
+    if (isPreview) {
+      routePath = window.location.pathname.slice(1)
+    } else {
+      const baseUrl = document.baseURI.replace(window.location.origin, "");
+      const currentUrl = window.location.href.replace(window.location.origin, "");
+      routePath = currentUrl.replace(baseUrl, "");
+    }
     let newRoutes: Routes = [
       { path: routePath, component: MainPlayerComponent },
       { path: '**', redirectTo: routePath }
@@ -86,7 +91,7 @@ export class MainPlayerComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     this.dataService.setConfig(changes['config'].currentValue)
     this.projectData = changes['projectData'].currentValue
-    this.setRoutes()
+    this.setRoutes(changes['config'].currentValue.isPreview)
     if(changes['config'].currentValue.isPreview){
       let formattedData = this.utils.snakeToCamelCaseConverter(this.projectData, this.keyMap)
       let projectData = { ...formattedData, isPreview: changes['config'].currentValue.isPreview }
