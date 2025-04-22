@@ -50,8 +50,9 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
     return firstValueFrom(this.apiService.get(config))
         .then(response => {
       this.utils.stopLoader()
-      if(response.result && response.result.downloadUrl){
-          this.sendMessage(response.result.downloadUrl,name);
+      let shareResponse:any = response.result.downloadUrl || response.result?.data?.downloadUrl
+      if(response.result && shareResponse){
+          this.sendMessage(shareResponse,name);
       }else{
         this.toastService.showToast("ERROR_IN_DOWNLOADING_MSG","danger")
       }

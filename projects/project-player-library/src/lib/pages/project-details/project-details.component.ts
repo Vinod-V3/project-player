@@ -23,12 +23,12 @@ ngOnChanges(changes: SimpleChanges): void {
 }
 getCategoryLabels(): any {
   if (this.projectDetails?.categories) {
-      this.categories = this.projectDetails.categories.map((item: { name: any; }) => item.name).join(', ');
+      this.categories = this.projectDetails.categories.filter((item: { name: any }) => item.name).map((item: { name: any; }) => item.name).join(', ');
     }
 }
 getRecommendedFor(): any {
   if (this.projectDetails?.recommendedFor) {
-    this.recommendedFor = this.projectDetails.recommendedFor.map((item: any) => item).join(', ');
+    this.recommendedFor = this.projectDetails.recommendedFor.map((item: any) => item?.code ? item?.code : item).join(', ');
   }
 }
 

@@ -62,7 +62,7 @@ export class SyncPageComponent extends BackNavigationHandlerComponent {
     this.syncService.getImageUploadUrls(project).then((imageInfo:any) => {
       for (let i = 0; i < this.attachmentsList.length; i++) {
         this.attachmentsList[i].uploadUrl = imageInfo.files[i].url;
-        this.attachmentsList[i].cloudStorage = imageInfo.cloudStorage;
+        this.attachmentsList[i].cloudStorage = imageInfo.cloudStorage || imageInfo.files[i].cloudStorage;
         this.attachmentsList[i].url = imageInfo.files[i].url.split('?')[0]
         for (const key of Object.keys(imageInfo.files[i].payload)) {
           this.attachmentsList[i][key] = imageInfo.files[i].payload[key];

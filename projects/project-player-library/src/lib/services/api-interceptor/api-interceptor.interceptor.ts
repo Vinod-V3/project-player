@@ -34,13 +34,17 @@ export class ApiInterceptor implements HttpInterceptor {
     if (!token) {
       return req;
     }
+
+    let headers: any = localStorage.getItem('headers');
+    let extraHeaders = JSON.parse(headers);
+
     return req.clone({
       setHeaders: {
       'Authorization': `Bearer ${token}`,
       'x-auth-token': token,
       'x-authenticated-user-token': token,
       'Content-Type': 'application/json',
-      'x-app-ver':'' }
+      'x-app-ver':'', ...extraHeaders }
     }
     );
   }
