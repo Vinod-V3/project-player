@@ -94,7 +94,7 @@ export class SyncService {
     return new Promise((resolve, reject) => {
       const config = {
         url: apiUrls.PRE_SIGNED_URL,
-        payload: payload,
+        payload: {...payload, ref: "improvementProject"},
       };
       this.apiService.post(config).subscribe(success => {
         let formattedData = {
