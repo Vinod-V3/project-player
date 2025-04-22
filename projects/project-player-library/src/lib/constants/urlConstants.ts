@@ -1,10 +1,10 @@
 export const apiUrls = {
-    SYNC_PROJECT : "project/v1/userProjects/sync/",
-    PRE_SIGNED_URL : "project/v1/cloud-services/files/preSignedUrls",
-    GET_PROJECT_DETAILS : "project/v1/userProjects/details",
-    SHARE: "project/v1/userProjects/share",
-    PROJECT_TASK_STATUS: "project/v1/userProjects/tasksStatus",
-    GET_TEMPLATE_DETAILS: "project/v1/solutions/details/",
+    SYNC_PROJECT : "userProjects/mlprojects/v1/sync/",
+    PRE_SIGNED_URL : "cloud-services/mlcore/v1/files/preSignedUrls",
+    GET_PROJECT_DETAILS : "userProjects/mlprojects/v1/details",
+    SHARE: "userProjects/mlprojects/v1/share",
+    PROJECT_TASK_STATUS: "userProjects/mlprojects/v1/tasksStatus",
+    GET_TEMPLATE_DETAILS: "solutions/mlcore/v1/details/",
     GET_TEMPLATE_BY_LINK: "project/v1/project/templates/details",
     IMPORT_LIBRARY: "project/v1/userProjects/importFromLibrary/"
 }
