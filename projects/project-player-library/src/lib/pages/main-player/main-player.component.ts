@@ -18,6 +18,7 @@ import { UtilsService } from '../../services/utils/utils.service';
 import { CertificatePageComponent } from '../certificate-page/certificate-page.component';
 import { ToastService } from '../../services/toast/toast.service';
 import { Location } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'lib-main-player',
@@ -39,7 +40,7 @@ export class MainPlayerComponent implements OnInit {
   };
   private routerSubscription!: Subscription;
   constructor(private routerService: RoutingService, private db: DbService, private apiService:ApiService, private dataService: DataService, private router: Router,
-    private utils: UtilsService, private toastService: ToastService, private location: Location
+    private utils: UtilsService, private toastService: ToastService, private location: Location, private translate: TranslateService
   ) {}
 
   private componentMapper: any = {
@@ -89,6 +90,7 @@ export class MainPlayerComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.setLanguage(changes['config'].currentValue.language)
     this.dataService.setConfig(changes['config'].currentValue)
     this.projectData = changes['projectData'].currentValue
     this.setRoutes(changes['config'].currentValue.isPreview)
@@ -218,5 +220,11 @@ export class MainPlayerComponent implements OnInit {
         queryObj[key] = value 
     });
     return queryObj;
+  }
+
+  setLanguage(language: string) {
+    let preferredLanguage = language ? language : "en"
+    this.translate.setTranslation(preferredLanguage, require(`../../assets/i18n/${preferredLanguage}.json`));
+    this.translate.setDefaultLang(preferredLanguage);
   }
 }

@@ -129,5 +129,8 @@
     "PROJECT_DATA_SHARING_INFO": "You have {{preference}} to share your project details with the administrator",
     "NO_SOLUTION_FOUND": "No solution found",
     "PROJECT_DOWNLOAD_FAILED":"Download failed. Check your network connection and try again.",
-    "PREVIEW_MODE_MSG" : "This feature is not available for preview mode"
+    "PREVIEW_MODE_MSG" : "This feature is not available for preview mode",
+    "START": "Start",
+    "VIEW_REPORTS": "View reports",
+    "CANNOT_GET_PROJECT_DETAILS": "Cannot get project details"
 }

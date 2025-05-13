@@ -16,7 +16,7 @@
         <h3>{{"STATUS"|translate}}</h3>
         <div>
             <mat-form-field>
-                <mat-select (valueChange)="taskStatusChange()" [(value)]="task.status" name="taskStatus" [disabled]="task?.children?.length > 0">
+                <mat-select (valueChange)="taskStatusChange()" [(value)]="task.status" name="taskStatus" [disabled]="isDisabled">
                   @for (item of taskOptions; track $index) {
                     <mat-option [value]="item.value">{{item.label | translate}}</mat-option>
                   }
