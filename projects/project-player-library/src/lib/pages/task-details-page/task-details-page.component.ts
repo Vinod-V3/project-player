@@ -35,6 +35,7 @@ export class TaskDetailsPageComponent extends BackNavigationHandlerComponent imp
   projectDetails:any
   subTaskData:any;
   params:any = {}
+  isDisabled:boolean = false
 
   ngOnInit(): void {
     this.setOptionList();
@@ -56,6 +57,7 @@ export class TaskDetailsPageComponent extends BackNavigationHandlerComponent imp
     this.task = this.projectDetails.tasks.find(
       (task:any) => task._id === this.taskId
     );
+    this.checkIsDisabled()
   }
   addSubTask(data: any) {
     this.subTaskData = this.utils.getMetaData();
@@ -162,5 +164,10 @@ export class TaskDetailsPageComponent extends BackNavigationHandlerComponent imp
 
   onLearningResources(id:any,fromDetailspage:boolean){
     this.routingService.navigate("/project-details",{ type: "resources", taskId: id, projectId: this.projectDetails._id })
+  }
+
+  checkIsDisabled(){
+    const specialTypeArray = ["assessment", "observation"]
+    this.isDisabled = specialTypeArray.includes(this.task?.type) || (this.task?.children?.length > 0)
   }
 }

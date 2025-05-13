@@ -88,10 +88,16 @@
                       </button>
                     </ng-container>
                     <ng-template #checkObservation>
-                      <ng-container *ngIf="item.type === 'observation'; else noLearningResources">
-                        <button (click)="$event.stopPropagation();onStartObservation()" class=" primary-button task-buttons text-sm px-3 py-2 !rounded-3xl" mat-flat-button >
-                          {{"OBSERVATION" | translate}}
-                        </button>
+                      <ng-container *ngIf="(item.type == 'assessment' || item.type === 'observation'); else noLearningResources">
+                        @if(item?.status !== statusConstant.completed){
+                          <button (click)="$event.stopPropagation();onStartObservation(item)" class=" primary-button task-buttons text-sm px-3 py-2 !rounded-3xl" mat-flat-button>
+                            {{"START" | translate}} {{ item?.type | lowercase }}
+                          </button>
+                        }@else if(item?.status == statusConstant.completed){
+                          <button (click)="$event.stopPropagation();onStartObservation(item)" class=" primary-button task-buttons text-sm px-3 py-2 !rounded-3xl" mat-flat-button>
+                            {{"VIEW_REPORTS" | translate}}
+                          </button>
+                        }
                       </ng-container>
                      </ng-template>
                   </ng-container>
