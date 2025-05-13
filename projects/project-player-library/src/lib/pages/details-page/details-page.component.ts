@@ -30,6 +30,7 @@ export class DetailsPageComponent implements OnInit {
   isOnline:any;
   showProjectShareControl = false
   projectShare = false
+  statusConstant = statusType
 
   constructor(private routerService: RoutingService, private db: DbService,
     private toasterService:ToastService, private utils: UtilsService, private projectService: ProjectService, private apiService: ApiService, private router: Router,private network:NetworkServiceService
@@ -237,7 +238,20 @@ export class DetailsPageComponent implements OnInit {
     this.routerService.navigate("/project-details",{ type: "resources", taskId: id, projectId: this.projectDetails._id})
 
   }
-  onStartObservation(){
+  onStartObservation(data:any){
+    let submissionDetails = data.submissionDetails
+    let enableObserveAgain = data.status == statusType.completed
+    if(submissionDetails?.observationId){
+      console.log("navigate to obser")
+      let path = `/managed-observation-portal/details/${submissionDetails?.name}/${submissionDetails?.observationId}/${submissionDetails?._id}/${enableObserveAgain}?submissionId=${submissionDetails?.submissionId}`
+      this.routerService.navigateByHref(path)
+    }else{
+      if(!this.isOnline){
+        this.toasterService.showToast("OFFLINE_MSG",'danger')
+      }else{
+        this.projectService.startAssessment(this.projectDetails, data)
+      }
+    }
   }
   initializeTasks(): void {
     this.tasksList = this.tasksList.filter((data:any)=>{

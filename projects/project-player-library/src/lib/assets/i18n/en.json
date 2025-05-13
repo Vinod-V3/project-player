@@ -55,7 +55,7 @@
     "ACCEPT_POLICY_ERROR_MSG":"Evidence not uploaded please click on attach and accept the content policy terms",
     "ATTACH_FILES":"Attach files",
     "UPLOAD_EVIDENCES":"Upload Evidences",
-    "TERMS_AND_CONDITIONS_MSG_1":"I confirm that the content submitted by me comply with the terms and policies of Elevate, including Elevate's",
+    "TERMS_AND_CONDITIONS_MSG_1":"I confirm that the content submitted by me comply with the terms and policies of DIKSHA, including DIKSHA's",
     "TERMS_AND_CONDITIONS_MSG_2":"I have made sure that I do not violate other's copyright, privacy or third party rights.",
     "CONTENT_POLICY":"Content Policy",
     "UPLOAD":"Upload",
@@ -129,5 +129,8 @@
     "PROJECT_DATA_SHARING_INFO": "You have {{preference}} to share your project details with the administrator",
     "NO_SOLUTION_FOUND": "No solution found",
     "PROJECT_DOWNLOAD_FAILED":"Download failed. Check your network connection and try again.",
-    "PREVIEW_MODE_MSG" : "This feature is not available for preview mode"
+    "PREVIEW_MODE_MSG" : "This feature is not available for preview mode",
+    "START": "Start",
+    "VIEW_REPORTS": "View reports",
+    "CANNOT_GET_PROJECT_DETAILS": "Cannot get project details"
 }

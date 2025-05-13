@@ -22,4 +22,8 @@ export class RoutingService {
     }
     
   }
+
+  navigateByHref(path: any){
+    window.location.href = path
+  }
 }

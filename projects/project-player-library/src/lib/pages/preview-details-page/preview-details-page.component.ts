@@ -47,6 +47,8 @@ export class PreviewDetailsPageComponent {
     if(this.utils.isLoggedIn()){
       if(this.stateData.referenceFrom == "library"){
         this.getTemplateByExternalId()
+      }else if(this.stateData.referenceFrom == "observation"){
+        this.getTemplateByObsExternalId()
       }else{
         this.getProjectTemplate()
       }
@@ -62,6 +64,24 @@ export class PreviewDetailsPageComponent {
       url: isLink ? `${apiUrls.GET_TEMPLATE_BY_LINK}?link=${this.id}` : `${apiUrls.GET_TEMPLATE_BY_LINK}/${this.stateData.externalId}`
     }
     this.apiService.get(config).subscribe({
+      next: (response:any) => {
+        this.projectDetails = response.result;
+        this.setActionsList();
+        this.initializeTasks()
+      },
+      error: (error:any) => {
+        setTimeout(() => {
+          this.location.back()
+        }, 1000);
+      }
+    })
+  }
+
+  getTemplateByObsExternalId(){
+    let config = {
+      url: `${apiUrls.GET_TEMPLATE_BY_EXTERNAL_ID}/${this.stateData.externalId}`
+    }
+    this.apiService.post(config).subscribe({
       next: (response:any) => {
         this.projectDetails = response.result;
         this.setActionsList();
