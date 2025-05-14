@@ -171,5 +171,8 @@
     "PROJECT_UPDATE_MSG": "आपका प्रोजेक्ट सफलतापूर्वक अपडेट हो गया है",
     "UPDATE":"अद्यतन",
     "PROJECT_UPDATE":"प्रोजेक्ट अद्यतन",
-    "SESSION":"सत्र"
+    "SESSION":"सत्र",
+    "START": "प्रारंभ करें",
+    "VIEW_REPORTS": "रिपोर्ट देखें",
+    "CANNOT_GET_PROJECT_DETAILS": "प्रोजेक्ट विवरण प्राप्त नहीं किया जा सका"
 }

@@ -171,5 +171,8 @@
     "PROJECT_UPDATE_MSG": "Your Project has been updated successfully",
     "UPDATE":"Update",
     "PROJECT_UPDATE":"Project update",
-    "SESSION":"Session"
+    "SESSION":"Session",
+    "START": "Start",
+    "VIEW_REPORTS": "View reports",
+    "CANNOT_GET_PROJECT_DETAILS": "Cannot get project details"
 }

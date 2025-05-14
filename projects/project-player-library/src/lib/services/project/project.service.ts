@@ -6,13 +6,16 @@ import { statusType } from '../../constants/statusConstants';
 import { ApiService } from '../api/api.service';
 import { firstValueFrom } from 'rxjs';
 import { RoutingService } from '../routing/routing.service';
+import { DataService } from '../data/data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
 
-  constructor(private utils: UtilsService, private toastService: ToastService, private apiService: ApiService, private routerService: RoutingService) { }
+  constructor(private utils: UtilsService, private toastService: ToastService, private apiService: ApiService, private routerService: RoutingService,
+    private dataService: DataService
+  ) { }
 
 async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
     let popupDetails= {
@@ -65,5 +68,57 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
   sendMessage(data:any,name:any) {
     const message = { type: 'SHARE_LINK', url: data ,name:name};
     window.postMessage(message, '*');
+  }
+
+  async startAssessment(projectData:any, taskData:any){
+    let profileInfo = this.dataService.getConfig().profileInfo
+    let apiConfig = {
+      url: `${apiUrls.START_ASSESSMENT}${projectData._id}?taskId=${taskData._id}`,
+      payload: profileInfo
+    }
+    console.log("start assssment ap cal: ",apiConfig)
+    try{
+      const response = await firstValueFrom(this.apiService.post(apiConfig))
+      const result = response?.result
+      console.log("get assessment api: ",result)
+      if(!result){
+        this.toastService.showToast("CANNOT_GET_PROJECT_DETAILS","danger")
+        return
+      }
+      if(result.observationId){
+        console.log("Redirecting to observation submission page: ",result)
+        let enableObserveAgain = result?.status == statusType.completed
+        let path = `/managed-observation-portal/details/${result?.name}/${result?.observationId}/${result?._id}/${enableObserveAgain}?submissionId=${result?.submissionId}`
+        this.routerService.navigateByHref(path)
+        return
+      }
+
+      let templateDetailsApiConfig = {
+        url: `${apiUrls.GET_TEMPLATE_DETAILS}${result?.solutionDetails?._id}`,
+        payload: profileInfo
+      }
+
+      const templateDetailsResponse = await firstValueFrom(this.apiService.post(templateDetailsApiConfig))
+      const templateDetailsResult = templateDetailsResponse.result
+      console.log("Get template api call response: ",templateDetailsResult)
+
+      const hasMultipleEvidences = templateDetailsResult.assessment.evidences.length > 1;
+      const hasMultipleSections = templateDetailsResult.assessment.evidences[0].sections.length > 1;
+      const hasCriteriaReport = templateDetailsResult.solution.criteriaLevelReport && templateDetailsResult.solution.isRubricDriven;
+
+      if(hasMultipleEvidences || hasMultipleSections || hasCriteriaReport){
+        console.log("Redirecting to domain ECM listing")
+        let path = `/managed-observation-portal/domain/${templateDetailsResult?.observationId}/${templateDetailsResult?.entityId}/${templateDetailsResult?._id}`
+        this.routerService.navigateByHref(path)
+      }else{
+        console.log("Redirecting to QUESTIONIARE page")
+        let path = `/managed-observation-portal/questionnaire?observationId=${templateDetailsResult?.observationId}&entityId${templateDetailsResult?.entityId}&submissionNumber=${templateDetailsResult?.submissionNumber}&evidenceCode=${templateDetailsResult?.assessment?.evidences[0]?.code}&index=0&submissionId=${templateDetailsResult?.submissionId}`
+        this.routerService.navigateByHref(path)
+      }
+
+    }catch (error) {
+      console.log("Error block: ",error)
+      this.toastService.showToast("CANNOT_GET_PROJECT_DETAILS","danger")
+    }
   }
 }

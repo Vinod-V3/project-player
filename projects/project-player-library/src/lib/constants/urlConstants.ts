@@ -12,4 +12,6 @@ export const apiUrls = {
     ENTITIES:"",
     LEARNING_RESOURCE:"",
     ADD_PROJECT: "",
+    START_ASSESSMENT: "",
+    GET_TEMPLATE_BY_EXTERNAL_ID: ""
 }
