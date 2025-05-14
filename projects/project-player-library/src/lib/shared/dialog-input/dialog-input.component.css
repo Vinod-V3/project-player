@@ -1,0 +1,16 @@
+.dialog-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.buttons-section{
+    justify-content: end;
+}
+
+.break-label {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }

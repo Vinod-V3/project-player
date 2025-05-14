@@ -1,0 +1,111 @@
+<div class="flex flex-col justify-center h-full">
+
+
+    @if (formType === 'create') {
+        <div class="flex p-4 justify-end items-center">
+            <span (click)="skip()" class="flex items-center gap-1 cursor-pointer">
+                    <p class="m-0 leading-none ">{{ "SKIP" | translate }}</p>
+                <mat-icon fontIcon="skip_next" class=" primary-icon flex items-start"></mat-icon>
+            </span>
+        </div>
+    }
+
+    <div class="flex-1 overflow-y-auto pb-24">
+
+          <!-- project Title -->
+      <div class="p-4">
+          <h3 class="text-lg font-semibold mb-1">{{"PROJECT_TITLE" | translate}}</h3>
+          <p class="text-base font-semibold">{{ projectDetails?.title }}</p>
+      </div>
+
+      <!-- set date and end date -->
+      <div class="flex flex-col gap-2 p-4">
+          <div>
+            <h3 class="text-lg font-semibold mb-1">{{ "SET_DATE" | translate }}</h3>
+            <p class="text-base">{{ "TIMELINE_FOR_PROJECT" | translate }}</p>
+          </div>
+
+          <div class="flex flex-col md:flex-row gap-2 md:gap-2">
+            <lib-date-input
+              [label]="'START_DATE'|translate"
+              [selectedDate]="startDate"
+              [maxDate]="endDate"
+              (dateEvent)="onStartDateChange($event)">
+            </lib-date-input>
+
+            <lib-date-input
+              [label]="'END_DATE'|translate"
+              [selectedDate]="endDate"
+              [minDate]="startDate"
+              (dateEvent)="onEndDateChange($event)">
+            </lib-date-input>
+          </div>
+        </div>
+
+      <!-- program -->
+  <div class="p-4 flex flex-col gap-2">
+      <h3 class="text-lg font-semibold">{{ "SELECT_OPERATION_PROGRAM" | translate }}</h3>
+      <mat-form-field class="w-full" appearance="fill">
+        <input
+          matInput
+          (click)="openProgramDialog()"
+          placeholder="{{ 'SELECT_OPERATION_PROGRAM' | translate }}"
+          readonly
+        />
+        <mat-icon matSuffix>arrow_drop_down</mat-icon>
+      </mat-form-field>
+      @if(selectedProgram) {
+          <div  class="flex justify-between items-center p-4 bg-white rounded w-full">
+              <span class="truncate max-w-[85%]">{{ selectedProgram.name }}</span>
+              <mat-icon class="cursor-pointer primary-icon ml-2 flex-shrink-0" (click)="confirmDelete('program')">cancel</mat-icon>
+            </div>
+      }
+    </div>
+
+    <!-- set entity -->
+    <div class=" p-4 flex flex-col gap-2">
+      <div class="flex justify-between items-center pb-2">
+        <h3 class=" text-lg font-semibold " >{{ "ADD_ENTITY" | translate }}</h3>
+        <button mat-flat-button class="primary-button cursor-pointer" type="button" (click)="openEntityDialog()">
+          <mat-icon fontIcon="add" class="text-white"></mat-icon>
+          {{ selectedEntity ? ('UPDATE' | translate) : ('ADD' | translate) }}
+
+        </button>
+      </div>
+
+      @if (selectedEntity) {
+          <div  class="flex justify-between items-center p-4 bg-white rounded w-full">
+              <span class="truncate max-w-[85%]">{{ selectedEntity.name }}</span>
+              <mat-icon class="cursor-pointer primary-icon ml-2 flex-shrink-0" (click)="confirmDelete('entity')">cancel</mat-icon>
+            </div>
+      }
+    </div>
+
+    <!-- learning resources -->
+    <div class="p-4 flex flex-col gap-2">
+      <div class="flex justify-between items-center pb-2">
+        <h3 class="text-lg font-semibold">{{ "LINK_LEARNING_RESOURCE" | translate }}</h3>
+        <button mat-flat-button class="primary-button cursor-pointer" type="button" (click)="openLearningResourceDialog()">
+          <mat-icon fontIcon="add" class="text-white"></mat-icon>
+
+          {{ 'ADD' | translate}}
+        </button>
+      </div>
+
+      <div *ngFor="let attachment of selectedLearningResource; let i = index" class="flex justify-between items-center p-4 bg-white rounded w-full">
+        <span class="truncate max-w-[85%]">{{ attachment.name }}</span>
+        <mat-icon class="cursor-pointer primary-icon ml-2 flex-shrink-0" (click)="confirmDelete('learningResource', i)">cancel</mat-icon>
+      </div>
+    </div>
+    </div>
+
+
+  <!-- submit -->
+    <div class="fixed flex justify-center bottom-0 left-0 right-0  p-4  shadow-md z-10">
+        <button mat-raised-button  class="primary-button" (click)="viewProject()">
+          {{ (formType === 'create' ? 'VIEW_PROJECT' : 'SAVE_EDITS') | translate }}
+        </button>
+        </div>
+
+
+</div>

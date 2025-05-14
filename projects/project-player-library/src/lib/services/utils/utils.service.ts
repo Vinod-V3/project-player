@@ -177,4 +177,17 @@ export class UtilsService {
     return str.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
   }
 
+  getProjectMetaData(){
+    let metaData = {
+      title:"",
+      description:"",
+      categories:[],
+      tasks:[],
+      hasAcceptedTAndC: false,
+      isDeleted: false,
+      status: "notStarted",
+    };
+    return metaData;
+  }
+
 }

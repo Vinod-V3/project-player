@@ -48,6 +48,8 @@ import { FilesCardComponent } from './shared/files-card/files-card.component';
 import { LearningResourcesComponent } from './pages/learning-resources/learning-resources.component';
 import { SyncPageComponent } from './pages/sync-page/sync-page.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatListModule } from '@angular/material/list';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { StartImprovementPopupComponent } from './shared/start-improvement-popup/start-improvement-popup.component';
 import { AttachmentPreviewComponent } from './shared/attachment-preview/attachment-preview.component';
@@ -58,7 +60,11 @@ import { HeaderComponent } from './shared/header/header.component';
 import { CertificatePageComponent } from './pages/certificate-page/certificate-page.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { ApiInterceptor } from './services/api-interceptor/api-interceptor.interceptor';
-
+import { ProjectCreateComponent } from './pages/project-create/project-create.component';
+import { DialogInputComponent } from './shared/dialog-input/dialog-input.component';
+import { ProjectOperationComponent } from './pages/project-operation/project-operation.component';
+import { SelectDialogComponent } from './shared/select-dialog/select-dialog.component';
+import { ProjectEditDetailsComponent } from './pages/project-edit-details/project-edit-details.component';
 
 const routes: Routes = [
   // { path: '' },
@@ -122,7 +128,12 @@ export function translateHttpLoaderFactory(httpClient: HttpClient) {
     DateInputComponent,
     CertificatePageComponent,
     BackNavigationHandlerComponent,
-    HeaderComponent
+    HeaderComponent,
+    ProjectCreateComponent,
+    DialogInputComponent,
+    ProjectOperationComponent,
+    SelectDialogComponent,
+    ProjectEditDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -154,7 +165,9 @@ export function translateHttpLoaderFactory(httpClient: HttpClient) {
     MatExpansionModule,
     MatDatepickerModule,
     MatProgressSpinnerModule,
-    MatRadioModule
+    MatRadioModule,
+    MatChipsModule,
+    MatListModule,
   ],
   exports: [RouterModule],
   providers: [
