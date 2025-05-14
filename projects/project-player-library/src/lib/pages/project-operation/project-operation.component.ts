@@ -203,7 +203,7 @@ async getSubentities(): Promise<any[]> {
     payload: {}
   };
   return new Promise((resolve, reject) => {
-    this.apiService.get(configForSubentity, undefined, true).subscribe(
+    this.apiService.get(configForSubentity).subscribe(
       (res) => {
         if (res) {
           resolve(res.result);
@@ -241,7 +241,7 @@ async addProject(projectDetails:any){
     url: apiUrls.ADD_PROJECT,
     payload: projectDetails
   }
-  this.apiService.post(config,undefined,true).subscribe(async (res) => {
+  this.apiService.post(config).subscribe(async (res) => {
     if (res) {
       const response = res.result;
       if (response) {
