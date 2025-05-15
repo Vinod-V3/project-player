@@ -1,7 +1,7 @@
 <div class="p-3">
     @if (dialogData?.header) {
       <div class="dialog-header ">
-        <mat-label class="flex break-label">{{ dialogData?.header | translate }}</mat-label>          @if (dialogData?.showCancel) {
+        <mat-label class="flex break-words [word-break:break-word]">{{ dialogData?.header | translate }}</mat-label>          @if (dialogData?.showCancel) {
               <mat-icon  class="mat-cancel-icon" [mat-dialog-close]="false">close</mat-icon>
           }
         </div>
@@ -15,7 +15,6 @@
               matInput
               [(ngModel)]="data"
               [required]="dialogData?.required"
-              [maxlength]="dialogData?.maxLength"
             />
           </mat-form-field>
         </ng-container>

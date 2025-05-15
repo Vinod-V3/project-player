@@ -55,7 +55,8 @@
 
   <!-- List -->
   <div class="overflow-y-auto border rounded p-2 h-[250px]">
-      <ng-container *ngIf="listData?.length && listData.length > 0; else noData">
+    @if (listData?.length && listData.length > 0) {
+      <ng-container >
         <mat-selection-list [multiple]="isMultiSelect">
           <mat-list-option
             *ngFor="let data of listData; trackBy: trackByFn"
@@ -73,10 +74,12 @@
           </div>
         }
     </ng-container>
-
-    <ng-template #noData>
+    }
+    @else{
+    <ng-template >
       <h3 class="text-center text-gray-500 p-4">{{ 'NO_SOLUTION_FOUND' | translate }}</h3>
     </ng-template>
+    }
   </div>
 
   <!-- Footer -->

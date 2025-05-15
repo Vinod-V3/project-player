@@ -44,12 +44,12 @@
 
       <!-- program -->
   <div class="p-4 flex flex-col gap-2">
-      <h3 class="text-lg font-semibold">{{ "SELECT_OPERATION_PROGRAM" | translate }}</h3>
+      <h3 class="text-lg font-semibold">{{ "SELECT_PROGRAM" | translate }}</h3>
       <mat-form-field class="w-full" appearance="fill">
         <input
           matInput
           (click)="openProgramDialog()"
-          placeholder="{{ 'SELECT_OPERATION_PROGRAM' | translate }}"
+          placeholder="{{ 'SELECT_PROGRAM' | translate }}"
           readonly
         />
         <mat-icon matSuffix>arrow_drop_down</mat-icon>
@@ -92,10 +92,12 @@
         </button>
       </div>
 
-      <div *ngFor="let attachment of selectedLearningResource; let i = index" class="flex justify-between items-center p-4 bg-white rounded w-full">
-        <span class="truncate max-w-[85%]">{{ attachment.name }}</span>
-        <mat-icon class="cursor-pointer primary-icon ml-2 flex-shrink-0" (click)="confirmDelete('learningResource', i)">cancel</mat-icon>
+      @for (item of selectedLearningResource; track $index) {
+        <div class="flex justify-between items-center p-4 bg-white rounded w-full">
+        <span class="truncate max-w-[85%]">{{ item.name }}</span>
+        <mat-icon class="cursor-pointer primary-icon ml-2 flex-shrink-0" (click)="confirmDelete('learningResource', $index)">cancel</mat-icon>
       </div>
+      }
     </div>
     </div>
 

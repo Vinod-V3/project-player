@@ -29,10 +29,7 @@ export class ProjectEditDetailsComponent extends BackNavigationHandlerComponent 
   }
 
   categoryNames() {
-    this.categories = this.projectDetails.categories
-      ?.map((item: any) => item.name || item.label)
-      .filter(Boolean)
-      .join(', ');
+    this.categories = this.projectDetails.categories.filter((item: { name: any }) => item.name).map((item: { name: any; }) => item.name).join(', ');
   }
 
   editProject(){

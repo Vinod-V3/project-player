@@ -87,11 +87,9 @@ export class MainPlayerComponent implements OnInit {
     if (baseUrl == '/') {
       return;
     } else {
-      const currentUrl = window.location.href.replace(window.location.origin, "");
-      routePath = currentUrl.replace(baseUrl, "");
+      routePath = window.location.pathname.replace(baseUrl, "");
     }
     }
-    routePath = window.location.pathname.slice(1);
     let newRoutes: Routes = [
       { path: routePath, component: MainPlayerComponent },
       { path: '**', redirectTo: routePath }

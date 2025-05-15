@@ -95,18 +95,17 @@ export const shareProjectPopupData = {
 
           program : {
             type: 'program',
-            title: 'SELECT_OPERATION_PROGRAM',
-            searchPlaceholder: 'SEARCH_OPERATION_PROGRAM',
+            title: 'SELECT_PROGRAM',
+            searchPlaceholder: 'SEARCH_PROGRAM',
             isMultiSelect: false,
             inputDailog: true,
             showFilters: false,
               inputDialogConfig: {
                 dialogtitle: 'CREATE_PROGRAM',
                 header: 'ENTER_PROGRAM_NAME',
-                label: 'PROGRAM_LABEL',
+                label: 'PROGRAM_NAME',
                 required: true,
                 showCancel: true,
-                maxLength: 100,
                 buttonText: { ok: 'SAVE', cancel: 'CANCEL' },
                 width: '450px'
               },
@@ -114,9 +113,9 @@ export const shareProjectPopupData = {
             },
             entity: {
                 type: 'entity',
-                title: 'SELECT_OPERATION_ENTITY',
+                title: 'SELECT_ENTITY',
                 filtersTitle:"FILTERS",
-                searchPlaceholder:"SEARCH_OPERATION_ENTITY",
+                searchPlaceholder:"SEARCH_ENTITY",
                 isMultiSelect: false,
                 inputDailog: false,
                 showFilters: true,
@@ -124,12 +123,35 @@ export const shareProjectPopupData = {
               },
               learningResource:{
                 type: 'learningResource',
-                title: 'SELECT_OPERATION_LEARNINGRESOURCE',
+                title: 'SELECT_LEARNING_RESOURCE',
                 filtersTitle:"FILTERS",
-                searchPlaceholder:"SEARCH_OPERATION_LEARNINGRESOURCE",
+                searchPlaceholder:"SEARCH_LEARNING_RESOURCE",
                 isMultiSelect: true,
                 inputDailog: false,
                 showFilters: true,
                 addButton:"ADD_LEARNING_RESOURCE"
               }
         }
+
+        export const learningResourcePayloadRequest = {
+            fields:{
+              mode: "hard",
+              exists: [],
+              facets: [],
+              sort_by: {},
+            },
+            filters: {
+              audience: [],
+              objectType: ["Content", "QuestionSet"],
+              contentType: ["Resource"],
+              primaryCategory: [],
+              se_mediums: [],
+              se_boards: [],
+              language: [],
+              topic: [],
+              purpose: [],
+              channel: [],
+              subject: []
+            }
+          }
+

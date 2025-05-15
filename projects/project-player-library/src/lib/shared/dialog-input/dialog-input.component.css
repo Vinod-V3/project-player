@@ -8,9 +8,3 @@
 .buttons-section{
     justify-content: end;
 }
-
-.break-label {
-    white-space: normal;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }

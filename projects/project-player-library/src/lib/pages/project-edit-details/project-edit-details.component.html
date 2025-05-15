@@ -4,7 +4,7 @@
         <div class="flex justify-between p-4">
         <div class="flex items-center w-fit">
             <div class="   px-3 py-2 text-white font-medium relative" style="border-top: 2px solid var(--primary-color);border-bottom: 2px solid var(--primary-color);background-color: var(--primary-color);">
-                {{("SESSION" | translate)+'1'}}
+                {{("SECTION" | translate)+' 1'}}
                 <span class="absolute right-[-19.5px] top-1/2 -translate-y-1/2 w-2 h-2
                             border-t-[22.5px] border-t-transparent
                             border-b-[22.5px] border-b-transparent"
@@ -17,10 +17,18 @@
         </button>
         </div>
         <mat-card-content class="space-y-4 p-4">
-        <div *ngIf="projectDetails?.title"><strong>{{"PROJECT_TITLE"|translate}}:</strong> {{ projectDetails.title }}</div>
-        <div *ngIf="projectDetails?.description"><strong>{{"OBJECTIVE"|translate}}:</strong> {{ projectDetails.description }}</div>
-        <div *ngIf="projectDetails?.duration"><strong>{{"DURATION"|translate}}:</strong> {{ projectDetails.duration }}</div>
-        <div *ngIf="categories"><strong>{{"CATEGORIES"|translate}}:</strong> {{ categories }}</div>
+        @if (projectDetails?.title) {
+            <div ><strong>{{"PROJECT_TITLE"|translate}}:</strong> {{ projectDetails.title }}</div>
+        }
+        @if (projectDetails?.description) {
+            <div><strong>{{"OBJECTIVE"|translate}}:</strong> {{ projectDetails.description }}</div>
+        }
+        @if (projectDetails?.duration) {
+            <div><strong>{{"DURATION"|translate}}:</strong> {{ projectDetails.duration }}</div>
+        }
+        @if (categories) {
+            <div><strong>{{"CATEGORIES"|translate}}:</strong> {{ categories }}</div>
+        }
         </mat-card-content>
     </mat-card>
 
@@ -28,7 +36,7 @@
         <div class="flex justify-between p-4">
         <div class="flex items-center w-fit">
             <div class="   px-3 py-2 text-white font-medium relative" style="border-top: 2px solid var(--primary-color);border-bottom: 2px solid var(--primary-color);background-color: var(--primary-color);">
-                {{("SESSION" | translate)+'2'}}
+                {{("SECTION" | translate)+' 2'}}
                 <span class="absolute right-[-19.5px] top-1/2 -translate-y-1/2 w-2 h-2
                             border-t-[22.5px] border-t-transparent
                             border-b-[22.5px] border-b-transparent"
@@ -41,28 +49,38 @@
         </button>
         </div>
         <mat-card-content class="space-y-4 p-4">
-        <div class="flex flex-col gap-1"><strong>{{"PROGRAM_LABEL"|translate}}:</strong>
+        <div class="flex flex-col gap-1"><strong>{{"PROGRAM_NAME"|translate}}:</strong>
             @if (projectDetails?.programName) {
                 <div  class=" p-4 bg-zinc-100 rounded">
                     <span>{{ projectDetails.programName }}</span>
                     </div>
             }
         </div>
-        <div *ngIf="projectDetails?.entityName" class="flex flex-col gap-1"><strong>{{"ENTITY_LABEL"|translate}}:</strong>
+        @if (projectDetails?.entityName) {
+            <div class="flex flex-col gap-1"><strong>{{"ENTITY_LABEL"|translate}}:</strong>
             <div  class=" p-4 bg-zinc-100 rounded">
                 <span>{{ projectDetails.entityName }}</span>
                 </div>
         </div>
-        <div *ngIf="projectDetails?.startDate"><strong>{{"START_DATE"|translate}}:</strong> {{ projectDetails.startDate  | date:'MM/dd/yyyy' }}</div>
-        <div *ngIf="projectDetails?.endDate"><strong>{{"END_DATE"|translate}}:</strong> {{ projectDetails.endDate  | date:'MM/dd/yyyy' }}</div>
-        <div *ngIf="projectDetails?.duration"><strong>{{"DURATION"|translate}}:</strong> {{ projectDetails.duration }}</div>
-        <div *ngIf="projectDetails?.learningResources?.length > 0" class="flex flex-col gap-2"><strong>{{"LEARNING_RESOURCES"|translate}}:</strong>
+        }
+        @if (projectDetails?.startDate) {
+            <div><strong>{{"START_DATE"|translate}}:</strong> {{ projectDetails.startDate  | date:'MM/dd/yyyy' }}</div>
+        }
+        @if (projectDetails?.endDate) {
+            <div ><strong>{{"END_DATE"|translate}}:</strong> {{ projectDetails.endDate  | date:'MM/dd/yyyy' }}</div>
+        }
+        @if (projectDetails?.duration) {
+            <div *ngIf=""><strong>{{"DURATION"|translate}}:</strong> {{ projectDetails.duration }}</div>
+        }
+        @if (projectDetails?.learningResources?.length > 0) {
+            <div class="flex flex-col gap-2"><strong>{{"LEARNING_RESOURCES"|translate}}:</strong>
                 @for (item of projectDetails?.learningResources; track $index) {
                 <div  class=" p-4 bg-zinc-100 rounded">
                     <span>{{ item.name }}</span>
                     </div>
                 }
             </div>
+        }
         </mat-card-content>
     </mat-card>
     </div>

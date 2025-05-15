@@ -67,7 +67,7 @@ export class ProjectOperationComponent extends BackNavigationHandlerComponent {
     // Triggers confirmation dialog before proceeding to add the project without reviewing
   skip(){
     this.confirmPopup().then((confirmed) => {
-      if (confirmed === true) {
+      if (confirmed) {
         this.addProject(this.projectDetails);
       }})
   }
@@ -144,7 +144,7 @@ async viewProject() {
     isPrivateProgram: this.selectedProgram?.name ? true : undefined,
     entityId: this.selectedEntity?._id,
     entityName: this.selectedEntity?.name,
-    learningResources: this.selectedLearningResource?.length ? this.selectedLearningResource : undefined
+    learningResources: this.selectedLearningResource?.length ? this.selectedLearningResource : []
   };
 
   const rawData = Object.fromEntries(
@@ -170,11 +170,10 @@ async viewProject() {
   }
 
   if (this.formType === 'create') {
-    console.log(this.projectDetails, "this is create");
     this.projectDetails = data;
 
     this.confirmPopup().then((confirmed) => {
-      if (confirmed === true) {
+      if (confirmed) {
         this.addProject(this.projectDetails);
       }
     });
@@ -197,7 +196,6 @@ async getSubentities(): Promise<any[]> {
   if (profileDataString) {
     profileData = JSON.parse(profileDataString);
   }
-  console.log(profileData);
   const configForSubentity = {
     url: `${apiUrls.SUB_ENTITY}${profileData?.state}?role=${profileData?.role}`,
     payload: {}

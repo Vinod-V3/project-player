@@ -5,6 +5,7 @@ import { apiUrls } from '../../constants/urlConstants';
 import { ApiService } from '../../services/api/api.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { learningResourcePayloadRequest } from '../../constants/dataConstants';
 
 @Component({
   selector: 'lib-select-dialog',
@@ -216,6 +217,7 @@ export class SelectDialogComponent implements OnInit {
         this.mergeListData(newData);
         this.updateSelectionMarkers();
       });
+      return;
     }
 
     if (this.type === 'entity') {
@@ -237,33 +239,22 @@ export class SelectDialogComponent implements OnInit {
         this.mergeListData(newData);
         this.updateSelectionMarkers(); // Mark selected items after data load
       });
+      return;
     }
 
     if (this.type === 'learningResource') {
+      let payloadrequest = learningResourcePayloadRequest;
       const config = {
         url: `${apiUrls.LEARNING_RESOURCE}`,
         payload: {
-          request: {
-            query: searchText,
-            offset: this.resourcePage * this.resourceLimit,
+          request:{
+            ...payloadrequest.fields,
+            query:searchText,
+            offset:this.resourcePage * this.resourceLimit,
             limit: this.resourceLimit,
-            mode: "hard",
-            exists: [],
-            facets: [],
-            sort_by: {},
-            filters: {
-              audience: [],
-              objectType: ["Content", "QuestionSet"],
-              contentType: ["Resource"],
-              primaryCategory: [],
-              se_mediums: [],
-              se_boards: [],
-              language: [],
-              topic: [],
-              purpose: [],
-              channel: [],
+            filters:{
+              ...payloadrequest.filters,
               mimeType: Array.isArray(filter?.value) ? [...filter.value] : [],
-              subject: []
             }
           }
         }
@@ -280,6 +271,7 @@ export class SelectDialogComponent implements OnInit {
         this.mergeListData(newData);
         this.updateSelectionMarkers();
       });
+      return;
     }
   }
 
@@ -295,19 +287,19 @@ export class SelectDialogComponent implements OnInit {
     );
 
     const merged = [...this.listData, ...newData];
-    const seen = new Set();
+    const selectItems = new Set();
 
-    const deduped = merged.filter(item => {
+    const duplicated = merged.filter(item => {
       const key = getKey(item);
-      if (!key || seen.has(key)) return false;
-      seen.add(key);
+      if (!key || selectItems.has(key)) return false;
+      selectItems.add(key);
       return true;
     });
 
     const selectedItems: any[] = [];
     const otherItems: any[] = [];
 
-    for (const item of deduped) {
+    for (const item of duplicated) {
       const key = getKey(item);
       if (!key) continue;
 
