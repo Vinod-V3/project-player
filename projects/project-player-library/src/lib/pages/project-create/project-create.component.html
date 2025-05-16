@@ -5,19 +5,23 @@
         <!-- Title -->
         <mat-form-field>
           <mat-label>{{"PROJECT_TITLE" | translate}}</mat-label>
-          <input matInput formControlName="title" [placeholder]="'NAME_YOUR_PROJECT'|translate" maxlength="100" />
-          <mat-error *ngIf="myForm.get('title')?.touched && myForm.get('title')?.invalid">
-            {{"VALID_ERROR"|translate:{ type:'title'} }}
+          <input matInput formControlName="title" [placeholder]="'NAME_YOUR_PROJECT'|translate" />
+          @if (myForm.get('title')?.touched && myForm.get('title')?.invalid) {
+          <mat-error>
+            {{"VALID_ERROR_MSG"|translate:{ type:'title'} }}
           </mat-error>
+          }
         </mat-form-field>
 
         <!-- Description -->
         <mat-form-field>
           <mat-label>{{"DESCRIPTION"|translate}}</mat-label>
           <textarea matInput formControlName="description" [placeholder]="'OBJECTIVE_PROJECT'|translate" rows="4"></textarea>
-          <mat-error *ngIf="myForm.get('description')?.touched && myForm.get('description')?.invalid">
-            {{"VALID_ERROR"|translate:{ type:'Description'} }}
+          @if (myForm.get('description')?.touched && myForm.get('description')?.invalid) {
+          <mat-error >
+            {{"VALID_ERROR_MSG"|translate:{ type:'Description'} }}
           </mat-error>
+          }
         </mat-form-field>
 
         <!-- Categories -->
@@ -25,19 +29,25 @@
           <mat-label>{{"CATEGORIES"|translate}}</mat-label>
           <mat-chip-listbox [multiple]="true" [required]="true">
             <div class="chip-options-list">
-              <mat-chip-option *ngFor="let chip of options" [value]="chip.label" (click)="onChipClick(chip)" [selected]="selectedChips.has(chip)">
+            @for (chip of options; track $index) {
+              <mat-chip-option  [value]="chip.label" (click)="onChipClick(chip)" [selected]="selectedChips.has(chip)">
                 <div>{{ chip.label }}</div>
                 <mat-icon matChipRemove *ngIf="selectedChips.has(chip)" (click)="onChipClick(chip)">cancel</mat-icon>
               </mat-chip-option>
+            }
 
-              <mat-chip *ngIf="showAddOption" class="flex items-center" (click)="addOption()">
+            @if (showAddOption) {
+              <mat-chip  class="flex items-center" (click)="addOption()">
                 <mat-icon>add_circle</mat-icon>
                 <span>{{"ADD"|translate}}</span>
               </mat-chip>
+            }
             </div>
           </mat-chip-listbox>
           <textarea matInput formControlName="categories" hidden required></textarea>
-          <mat-error *ngIf="shouldShowCategoryError()">{{"VALID_ERROR_CATEGORIES"|translate}}</mat-error>
+          @if (shouldShowCategoryError()) {
+            <mat-error >{{"CATEGORIES_ERROR_MSG"|translate}}</mat-error>
+          }
         </mat-form-field>
 
         <!-- Tasks -->
@@ -46,12 +56,14 @@
             <h6>{{"TASKS"|translate}}</h6>
             <button mat-flat-button class="primary-button cursor-pointer" type="button" (click)="addTask()">
               <mat-icon fontIcon="add" class="text-white"></mat-icon>
-                {{"CREATE_TASK_PROJECT"|translate}}</button>
+                {{"CREATE_TASK"|translate}}</button>
           </div>
-          <div *ngFor="let task of myForm.get('tasks')?.value; let i = index" class="flex justify-between items-center p-4 bg-white rounded">
-            <span>{{ task.name }}</span>
-            <mat-icon class="cursor-pointer primary-icon" (click)="confirmDeleteTask(i)">cancel</mat-icon>
+          @for (item of myForm.get('tasks')?.value; track $index) {
+          <div  class="flex justify-between items-center p-4 bg-white rounded">
+            <span>{{ item.name }}</span>
+            <mat-icon class="cursor-pointer primary-icon" (click)="confirmDeleteTask($index)">cancel</mat-icon>
           </div>
+        }
         </div>
       </div>
 
