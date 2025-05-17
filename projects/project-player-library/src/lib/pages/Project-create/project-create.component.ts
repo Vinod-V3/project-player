@@ -53,7 +53,7 @@ export class ProjectCreateComponent extends BackNavigationHandlerComponent imple
     await this.initializeForm();
   }
 
-    // Loads existing project details if editing, otherwise sets default empty structure
+    // Loads existing project details if editing, otherwise sets default empty 
   async initializeForm() {
     if (this.formType === 'edit') {
       const data: any = await this.db.getData(this.projectId);
