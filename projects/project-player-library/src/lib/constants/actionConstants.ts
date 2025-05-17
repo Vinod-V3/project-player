@@ -19,6 +19,12 @@ export const actions = {
             color: "primary-icon"
         },
         {
+            title: "EDIT",
+            icon: "edit",
+            action: "edit",
+            color: "primary-icon"
+        },
+        {
             title: "SYNC",
             icon: "sync",
             action: "sync",

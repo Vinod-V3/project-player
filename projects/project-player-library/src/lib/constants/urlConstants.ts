@@ -8,5 +8,10 @@ export const apiUrls = {
     GET_TEMPLATE_BY_LINK: "project/v1/project/templates/details",
     IMPORT_LIBRARY: "project/v1/userProjects/importFromLibrary/",
     START_ASSESSMENT: "userProjects/mlprojects/v1/solutionDetails/",
-    GET_TEMPLATE_BY_EXTERNAL_ID: "project/mlprojects/v1/templates/details/"
+    GET_TEMPLATE_BY_EXTERNAL_ID: "project/mlprojects/v1/templates/details/",
+    PROGRAM:"users/mlcore/v1/programs",
+    SUB_ENTITY:"entities/mlcore/v1/subEntityListBasedOnRoleAndLocation",
+    ENTITIES:"entities/mlcore/v1/subEntityList",
+    LEARNING_RESOURCE:"content/v1/search",
+    ADD_PROJECT: "userProjects/mlprojects/v1/add",
 }

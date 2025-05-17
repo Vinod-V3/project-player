@@ -108,22 +108,34 @@ export class SyncService {
 
   async cloudImageUpload(fileDetails:any){
     return new Promise(async(resolve, reject) => {
-      await this.db.getData(fileDetails.name).then(fileData=>{
+      await this.db.getData(fileDetails.name).then(async fileData=>{
         let convertedFile
         if(fileData){
-          convertedFile = this.attachmentService.base64ToFile(fileData.data)
+          convertedFile = this.attachmentService.base64ToFile(fileData.data,fileDetails.name)
+          console.log("Converted file: ",convertedFile)
         }else{
           reject()
           return
         }
         var options = {
           headers: {
-            "Content-Type": "multipart/form-data",
-            "Access-Control-Allow-Origin":"*",
-            ...(fileDetails.cloudStorage.toLowerCase() === "azure" ? { "x-ms-blob-type": "BlockBlob" } : {})
+            "Content-Type": fileDetails.type
           }
         }
-        firstValueFrom(this.customHttp.put(fileDetails.uploadUrl, convertedFile, options)).then(data=>{
+        // firstValueFrom(this.customHttp.put(fileDetails.uploadUrl, convertedFile, options)).then(data=>{
+        //   resolve(data)
+        // }).catch(err=>reject(err))
+        let formData = new FormData();
+        formData.append('file', convertedFile)
+        formData.append('url', fileDetails.uploadUrl)
+        let payload = {
+          url: fileDetails.uploadUrl,
+          file: convertedFile
+        }
+        console.log("Payload: ",formData)
+        let uploadBaseUrl = "https://dev.oci.diksha.gov.in/cloudUpload/upload"
+        firstValueFrom(this.customHttp.put(uploadBaseUrl, formData, options)).then(data=>{
+          console.log("Data resp from file put: ",data)
           resolve(data)
         }).catch(err=>reject(err))
       })
