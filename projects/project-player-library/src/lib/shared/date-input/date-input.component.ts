@@ -8,14 +8,25 @@ import { MatDatepicker } from '@angular/material/datepicker';
 })
 export class DateInputComponent {
   currentYear:any= new Date().getFullYear();
-  minDate:any= new Date(this.currentYear-2,0,1);
-  maxDate:any= new Date(this.currentYear+5,11,31);
+  defaultMinDate: Date = new Date(this.currentYear - 2, 0, 1);
+  @Input() minDate?: any;
+  @Input() maxDate?:any;
+  defaultMaxDate:any= new Date(this.currentYear+5,11,31);
   @Input() label?: any
   @Input() selectedDate: any
   @ViewChild('dateInput') dateInput !: ElementRef;
   @Output() dateEvent = new EventEmitter<any>();
 
   constructor(){}
+
+  ngOnInit(): void {
+    if (!this.minDate) {
+      this.minDate = this.defaultMinDate;
+    }
+    if (!this.maxDate) {
+      this.maxDate = this.defaultMaxDate;
+      }
+  }
 
   showCalendar(picker: MatDatepicker<Date>) {
     picker.open();

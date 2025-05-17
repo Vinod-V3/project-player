@@ -26,6 +26,7 @@ export class SyncPageComponent extends BackNavigationHandlerComponent {
   imageUploadIndex = 0
   retryCount = 0
   cloudUploadFailed = false
+  isNew:any
 
   constructor(private routingService: RoutingService, private toastService: ToastService,
     private db: DbService, private syncService: SyncService, private projectService: ProjectService, private location: Location,
@@ -38,6 +39,7 @@ export class SyncPageComponent extends BackNavigationHandlerComponent {
       this.taskId = params["taskId"]
       this.isShare = params["isShare"] == "true"
       this.fileName = params["fileName"]
+      this.isNew = params["isNew"]
   }
 
   ngOnInit() {
@@ -159,7 +161,12 @@ export class SyncPageComponent extends BackNavigationHandlerComponent {
   }
 
   goBack(){
+    if(this.isNew){
+      this.routingService.navigate('/project-details',{ type: 'details', id: this.projectId },{replaceUrl:true});
+    }
+    else {
     this.location.back()
+    }
   }
 
 
