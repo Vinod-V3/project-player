@@ -81,6 +81,7 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
       const response = await firstValueFrom(this.apiService.post(apiConfig))
       const result = response?.result
       console.log("get assessment api: ",result)
+      localStorage.setItem("responseOne",JSON.stringify(result))
       if(!result){
         this.toastService.showToast("CANNOT_GET_PROJECT_DETAILS","danger")
         return
@@ -100,6 +101,7 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
 
       const templateDetailsResponse = await firstValueFrom(this.apiService.post(templateDetailsApiConfig))
       const templateDetailsResult = templateDetailsResponse.result
+      localStorage.setItem("responseTwo",JSON.stringify(templateDetailsResult))
       console.log("Get template api call response: ",templateDetailsResult)
 
       const hasMultipleEvidences = templateDetailsResult.assessment.evidences.length > 1;

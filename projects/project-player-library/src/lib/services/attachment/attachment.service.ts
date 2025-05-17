@@ -30,7 +30,7 @@ export class AttachmentService {
     });
   }
 
-  base64ToFile(file:any){
+  base64ToFile(file:any, filename:any){
     const contentType = file.split(';')[0].split(':')[1];
     const byteCharacters = atob(file.split(',')[1]);
     const byteNumbers = new Array(byteCharacters.length);
@@ -39,7 +39,8 @@ export class AttachmentService {
     }
     const byteArray = new Uint8Array(byteNumbers);
     const blob = new Blob([byteArray], { type: contentType });
-    return blob
+    return new File([blob], filename, { type: contentType });
+    // return blob
   }
 
   isFileSizeGreater(file:any){
