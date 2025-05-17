@@ -238,7 +238,7 @@ export class ProjectCreateComponent extends BackNavigationHandlerComponent imple
     }
   }
 
-  // Opens confirmation dialog showing successful project creation; returns user's choice
+  // Opens confirmation dialog showing successful project creation; returns user's choice.
   createProject(): Promise<boolean> {
     const dialogRef = this.dialog.open(DialogInputComponent, {
       data: {
