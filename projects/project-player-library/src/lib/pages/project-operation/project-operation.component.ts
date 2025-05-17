@@ -66,10 +66,7 @@ export class ProjectOperationComponent extends BackNavigationHandlerComponent {
 
     // Triggers confirmation dialog before proceeding to add the project without reviewing
   skip(){
-    this.confirmPopup().then((confirmed) => {
-      if (confirmed) {
-        this.addProject(this.projectDetails);
-      }})
+    this.viewProject();
   }
 
   // Updates the start date when user selects a new start date
@@ -153,23 +150,16 @@ async viewProject() {
       !(Array.isArray(v) && v.length === 0)
     )
   );
-
-  let data: any = {
-    ...metaData,
-    ...rawData,
-    title: this.projectDetails.title,
-    description: this.projectDetails.description,
-    categories: this.projectDetails.categories,
-    tasks: this.projectDetails.tasks,
-    hasAcceptedTAndC: this.projectDetails.hasAcceptedTAndC,
-  };
-
-  if (this.formType === 'edit' && this.projectDetails?._id) {
-    data._id = this.projectDetails._id;
-    data.isEdit = true;
-  }
-
-  if (this.formType === 'create') {
+  if(this.formType == 'create'){
+    let data: any = {
+      ...metaData,
+      ...rawData,
+      title: this.projectDetails.title,
+      description: this.projectDetails.description,
+      categories: this.projectDetails.categories,
+      tasks: this.projectDetails.tasks,
+      hasAcceptedTAndC: this.projectDetails.hasAcceptedTAndC,
+    };
     this.projectDetails = data;
 
     this.confirmPopup().then((confirmed) => {
@@ -177,11 +167,28 @@ async viewProject() {
         this.addProject(this.projectDetails);
       }
     });
-  } else {
-
+  }
+  else{
+    let data: any = {
+      ...this.projectDetails,
+      startDate: this.startDate ? this.startDate : null,
+      endDate: this.endDate ? this.endDate : null,
+      programName: this.selectedProgram?.name ? this.selectedProgram?.name : "",
+      programId: this.selectedProgram?.id ? this.selectedProgram?.id : "",
+      entityId: this.selectedEntity?._id ? this.selectedEntity?._id : "",
+      entityName: this.selectedEntity?.name ? this.selectedEntity?.name : "",
+      learningResources: this.selectedLearningResource?.length ? this.selectedLearningResource : []
+    };
+    data.isEdit = true;
+    const rawDataEdit = Object.fromEntries(
+      Object.entries(data).filter(([_, v]) =>
+        v !== undefined && v !== null && v !== '' &&
+        !(Array.isArray(v) && v.length === 0)
+      )
+    );
     let updatePayload = {
-      key: data._id,
-      data: data
+      key: rawDataEdit['_id'],
+      data: rawDataEdit
     };
 
     await this.db.updateData(updatePayload);
