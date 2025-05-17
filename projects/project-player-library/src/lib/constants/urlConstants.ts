@@ -7,6 +7,11 @@ export const apiUrls = {
     GET_TEMPLATE_DETAILS: "project/v1/solutions/details/",
     GET_TEMPLATE_BY_LINK: "project/v1/project/templates/details",
     IMPORT_LIBRARY: "project/v1/userProjects/importFromLibrary/",
+    PROGRAM:"",
+    SUB_ENTITY:"",
+    ENTITIES:"",
+    LEARNING_RESOURCE:"",
+    ADD_PROJECT: "",
     START_ASSESSMENT: "",
     GET_TEMPLATE_BY_EXTERNAL_ID: ""
 }

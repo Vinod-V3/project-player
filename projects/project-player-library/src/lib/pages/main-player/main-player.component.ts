@@ -19,6 +19,9 @@ import { CertificatePageComponent } from '../certificate-page/certificate-page.c
 import { ToastService } from '../../services/toast/toast.service';
 import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { ProjectCreateComponent } from '../project-create/project-create.component';
+import { ProjectOperationComponent } from '../project-operation/project-operation.component';
+import { ProjectEditDetailsComponent } from '../project-edit-details/project-edit-details.component';
 
 @Component({
   selector: 'lib-main-player',
@@ -52,8 +55,10 @@ export class MainPlayerComponent implements OnInit {
     sync: SyncPageComponent,
     template: PreviewDetailsPageComponent,
     resources: LearningResourcesComponent,
-    certificate: CertificatePageComponent
-
+    certificate: CertificatePageComponent,
+    projectCreate: ProjectCreateComponent,
+    projectOperation: ProjectOperationComponent,
+    editDetails: ProjectEditDetailsComponent,
   };
 
   ngOnInit() {
@@ -79,8 +84,11 @@ export class MainPlayerComponent implements OnInit {
       routePath = window.location.pathname.slice(1)
     } else {
       const baseUrl = document.baseURI.replace(window.location.origin, "");
-      const currentUrl = window.location.href.replace(window.location.origin, "");
-      routePath = currentUrl.replace(baseUrl, "");
+    if (baseUrl == '/') {
+      return;
+    } else {
+      routePath = window.location.pathname.replace(baseUrl, "");
+    }
     }
     let newRoutes: Routes = [
       { path: routePath, component: MainPlayerComponent },

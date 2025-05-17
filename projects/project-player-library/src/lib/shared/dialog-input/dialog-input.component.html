@@ -1,0 +1,37 @@
+<div class="p-3">
+    @if (dialogData?.header) {
+      <div class="dialog-header ">
+        <mat-label class="flex break-words [word-break:break-word]">{{ dialogData?.header | translate }}</mat-label>          @if (dialogData?.showCancel) {
+              <mat-icon  class="mat-cancel-icon" [mat-dialog-close]="false">close</mat-icon>
+          }
+        </div>
+    }
+
+      <div mat-dialog-content >
+        <ng-container *ngIf="dialogData?.required; else confirmationOnly">
+          <mat-form-field style="width: 100%" floatLabel="always">
+            <mat-label class="flex">{{ dialogData?.label  | translate}}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="data"
+              [required]="dialogData?.required"
+            />
+          </mat-form-field>
+        </ng-container>
+
+        <ng-template #confirmationOnly>
+          <p class="break-label">{{ dialogData?.label | translate }}</p>
+        </ng-template>
+      </div>
+
+      <div mat-dialog-actions class="buttons-section">
+        @if(dialogData?.buttonText?.cancel){
+          <button mat-raised-button class="primary-button"  [mat-dialog-close]="false">
+            {{ dialogData?.buttonText?.cancel | translate }}
+          </button>
+        }
+        <button mat-raised-button class="primary-button" [mat-dialog-close]="dialogData?.required ? data : true" cdkFocusInitial>
+          {{ dialogData?.buttonText?.ok | translate}}
+        </button>
+      </div>
+</div>
