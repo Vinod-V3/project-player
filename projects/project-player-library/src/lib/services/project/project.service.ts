@@ -114,7 +114,9 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
         this.routerService.navigateByHref(path)
       }else{
         console.log("Redirecting to QUESTIONIARE page")
-        let path = `/managed-observation-portal/questionnaire?observationId=${templateDetailsResult?.observationId}&entityId${templateDetailsResult?.entityId}&submissionNumber=${templateDetailsResult?.submissionNumber}&evidenceCode=${templateDetailsResult?.assessment?.evidences[0]?.code}&index=0&submissionId=${templateDetailsResult?.submissionId}`
+        let path = `/managed-observation-portal/questionnaire?observationId=${templateDetailsResult?.observationId ?? ""}&entityId=
+        ${templateDetailsResult?.entityId ?? ""}&submissionNumber=${templateDetailsResult?.submissionNumber ?? ""}&evidenceCode=
+        ${templateDetailsResult?.assessment?.evidences[0]?.code ?? ""}&index=0&submissionId=${templateDetailsResult?.submissionId ?? ""}`
         this.routerService.navigateByHref(path)
       }
 
