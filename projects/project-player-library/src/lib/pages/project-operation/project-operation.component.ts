@@ -186,6 +186,7 @@ async viewProject() {
         !(Array.isArray(v) && v.length === 0)
       )
     );
+    rawDataEdit['tasks'] = this.projectDetails.tasks ? this.projectDetails.tasks : [];
     let updatePayload = {
       key: rawDataEdit['_id'],
       data: rawDataEdit
