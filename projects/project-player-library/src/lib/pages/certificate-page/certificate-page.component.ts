@@ -16,6 +16,7 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
   projectId: any;
   projectDetails: any;
   certificateUrl:any;
+  acceptType = 'image/svg+xml'
 
   @ViewChild('certificateContainer', { static: true }) certificateContainer:
     | ElementRef
@@ -49,25 +50,9 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
     this.apiService.post(configForProject).subscribe((res) => {
       this.projectDetails = res.result;
       if (this.projectDetails.certificate) {
-        if(this.projectDetails.certificate.eligible){
-          const svgUrl = this.projectDetails.certificate.svgUrl;
-          this.customHttp.get(svgUrl, { responseType: 'text' }).subscribe((res) => {
-            this.certificateUrl = res;
-            if (this.certificateContainer) {
-              this.renderer.setProperty(
-                this.certificateContainer.nativeElement,
-                'innerHTML',
-                this.certificateUrl
-              );
-
-              const svgElement = this.certificateContainer.nativeElement.querySelector('svg');
-              if (svgElement) {
-                this.renderer.setStyle(svgElement, 'object-fit', 'contain');
-                this.renderer.setStyle(svgElement, 'width', '100%');
-              }
-            }
-          });
-        }
+          if (this.projectDetails?.certificate?.eligible && this.projectDetails?.certificate?.osid) {
+            this.loadCertificateSvg();
+          }
       }
     });
   }
@@ -134,4 +119,41 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
         }, 'image/png');
         this.toasterService.showToast('CERTIFICATE_DOWNLOAD_SUCCESS', 'success');
   }
+
+
+  loadCertificateSvg() {
+    const config = {
+      url: apiUrls.CERTIFICATE_URL + this.projectDetails.certificate.osid,
+      headers: {
+        template: this.projectDetails.certificate.templateUrl,
+        accept: this.acceptType,
+      },
+    };
+
+    this.apiService.get(config).subscribe((res: string) => {
+      let template = res;
+      if (template.startsWith('data:image/svg+xml,')) {
+        template = decodeURIComponent(template.replace(/data:image\/svg\+xml,/, '')).replace(/\<!--\s*[a-zA-Z0-9\-]*\s*--\>/g, '');
+      }
+
+      this.certificateUrl = template;
+
+      if (this.certificateContainer) {
+        this.renderer.setProperty(
+          this.certificateContainer.nativeElement,
+          'innerHTML',
+          this.certificateUrl
+        );
+
+        const svgElement = this.certificateContainer.nativeElement.querySelector('svg');
+        if (svgElement) {
+          this.renderer.setStyle(svgElement, 'object-fit', 'contain');
+          this.renderer.setStyle(svgElement, 'width', '100%');
+        }
+      }
+    }, error => {
+      this.toasterService.showToast('CERTIFICATE_FETCH_FAILED', 'error');
+    });
+  }
+
 }
