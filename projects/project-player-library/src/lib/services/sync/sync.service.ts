@@ -3,9 +3,10 @@ import { apiUrls } from '../../constants/urlConstants';
 import { statusType } from '../../constants/statusConstants';
 import { ApiService } from '../api/api.service';
 import { DbService } from '../db/db.service';
-import { HttpBackend, HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { AttachmentService } from '../attachment/attachment.service';
 import { firstValueFrom } from 'rxjs';
+import { DataService } from '../data/data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ import { firstValueFrom } from 'rxjs';
 export class SyncService {
   private customHttp: HttpClient;
 
-  constructor(private apiService: ApiService, private db: DbService, private attachmentService: AttachmentService, private httpBackend: HttpBackend) {
+  constructor(private apiService: ApiService, private db: DbService, private attachmentService: AttachmentService, private httpBackend: HttpBackend,
+    private dataService: DataService
+  ) {
     this.customHttp = new HttpClient(httpBackend);
   }
 
@@ -133,8 +136,10 @@ export class SyncService {
           file: convertedFile
         }
         console.log("Payload: ",formData)
-        let uploadBaseUrl = "https://dev.oci.diksha.gov.in/cloudUpload/upload"
-        firstValueFrom(this.customHttp.put(uploadBaseUrl, formData, options)).then(data=>{
+        const baseUrl = this.dataService.getConfig().baseUrl;
+        const uploadUrl = new URL(baseUrl).origin + apiUrls.CLOUD_UPLOAD;
+        const headers = new HttpHeaders();
+        firstValueFrom(this.customHttp.put(uploadUrl, formData, {headers})).then(data=>{
           console.log("Data resp from file put: ",data)
           resolve(data)
         }).catch(err=>reject(err))

@@ -14,5 +14,6 @@ export const apiUrls = {
     ENTITIES:"entities/mlcore/v1/subEntityList",
     LEARNING_RESOURCE:"content/v1/search",
     ADD_PROJECT: "userProjects/mlprojects/v1/add",
-    CERTIFICATE_URL:"rc/projectCertificate/v1/download/"
+    CERTIFICATE_URL:"rc/projectCertificate/v1/download/",
+    CLOUD_UPLOAD: "/cloudUpload/upload"
 }
