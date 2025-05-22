@@ -167,12 +167,13 @@
     "ADD":"Add",
     "ADD_NEW":"Add new",
     "ENTER_VALUE":"Enter value",
-    "ENTER_TASK_DESC":"Enter task description",
     "PROJECT_UPDATE_MSG": "Your Project has been updated successfully",
     "UPDATE":"Update",
     "PROJECT_UPDATE":"Project update",
     "SECTION":"Section",
     "START": "Start",
     "VIEW_REPORTS": "View reports",
-    "CANNOT_GET_PROJECT_DETAILS": "Cannot get project details"
+    "CANNOT_GET_PROJECT_DETAILS": "Cannot get project details",
+    "ADD_TASK_DESCRIPTION_HERE":"Add task description here",
+    "CREATE_NEW_PROGRAM":"Create new program"
 }

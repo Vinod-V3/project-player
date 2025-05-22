@@ -167,12 +167,13 @@
     "ADD":"जोड़ना",
     "ADD_NEW":"नया जोड़ो",
     "ENTER_VALUE":"मान दर्ज करें",
-    "ENTER_TASK_DESC":"कार्य विवरण दर्ज करें",
     "PROJECT_UPDATE_MSG": "आपका प्रोजेक्ट सफलतापूर्वक अपडेट हो गया है",
     "UPDATE":"अद्यतन",
     "PROJECT_UPDATE":"प्रोजेक्ट अद्यतन",
     "SECTION":"अनुभाग",
     "START": "प्रारंभ करें",
     "VIEW_REPORTS": "रिपोर्ट देखें",
-    "CANNOT_GET_PROJECT_DETAILS": "प्रोजेक्ट विवरण प्राप्त नहीं किया जा सका"
+    "CANNOT_GET_PROJECT_DETAILS": "प्रोजेक्ट विवरण प्राप्त नहीं किया जा सका",
+    "ADD_TASK_DESCRIPTION_HERE":"यहां कार्य विवरण जोड़ें",
+    "CREATE_NEW_PROGRAM":"नया प्रोग्राम बनाएं"
 }
