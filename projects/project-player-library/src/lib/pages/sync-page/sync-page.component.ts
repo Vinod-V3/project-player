@@ -76,38 +76,51 @@ export class SyncPageComponent extends BackNavigationHandlerComponent {
 
   cloudUpload(imageDetails:any){
     this.syncService.cloudImageUpload(imageDetails).then((success:any) => {
+      console.log("Success resp in sync page: ",success)
+      if(success?.status == 400){
+        this.toastService.showToast("UPLOAD_FAILED","danger")
+      }
       this.retryCount =0;
       delete this.attachmentsList[this.imageUploadIndex].cloudStorage;
       delete this.attachmentsList[this.imageUploadIndex].uploadUrl;
       delete this.attachmentsList[this.imageUploadIndex].isUploaded;
       delete this.attachmentsList[this.imageUploadIndex].uploadFailed
       if (this.imageUploadIndex + 1 < this.attachmentsList.length) {
+        console.log("entry one--------")
         this.imageUploadIndex++;
         this.fileUploadCount++
         this.cloudUpload(this.attachmentsList[this.imageUploadIndex])
       } else {
+        console.log("entry two======")
         if(this.imageUploadIndex == this.fileUploadCount){
+          console.log("entry three______")
           this.doSyncCall()
         }else{
+          console.log("entry four*******")
           this.cloudUploadFailed = true
           this.updateDataToDb()
         }
       }
     }).catch((error:any) => {
+      console.log("error block: ",error)
       this.retryCount++;
       if (this.retryCount > 3) {
+        console.log("ERR entry one--------")
         this.attachmentsList[this.imageUploadIndex]['uploadFailed'] = true
         this.attachmentsList[this.imageUploadIndex]['isUploaded'] = false
         delete this.attachmentsList[this.imageUploadIndex].sourcePath
         this.attachmentsList[this.imageUploadIndex].url = ''
         if(this.imageUploadIndex + 1 < this.attachmentsList.length){
+          console.log("ERR entry two======")
           this.imageUploadIndex++
           this.cloudUpload(this.attachmentsList[this.imageUploadIndex])
         }else{
+          console.log("ERR entry three______")
           this.cloudUploadFailed = true
           this.updateDataToDb()
         }
       } else {
+        console.log("ERR entry four*******")
         this.cloudUpload(this.attachmentsList[this.imageUploadIndex]);
       }
     })

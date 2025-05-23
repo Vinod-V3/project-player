@@ -151,7 +151,7 @@ export class MainPlayerComponent implements OnInit {
         this.toastService.showToast("USER_NOT_LOGGEDIN_MSG","danger")
         setTimeout(() => {
           history.replaceState(null, '', '/');
-          window.location.href = '/'
+          window.location.href = this.dataService.getConfig()?.redirectionLinks?.unauthorizedRedirectUrl ?? "/"
         }, 1000);
       }
     }
