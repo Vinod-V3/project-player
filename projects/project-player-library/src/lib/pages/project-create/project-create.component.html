@@ -1,7 +1,7 @@
-<div class="flex flex-col min-h-[92vh]">
+<div class="flex flex-col h-full">
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="flex flex-col flex-grow overflow-hidden">
 
-      <div class="overflow-auto flex-grow p-4 flex flex-col gap-4">
+      <div class="flex-1 overflow-y-auto pb-24 p-4 flex flex-col gap-4">
         <!-- Title -->
         <mat-form-field>
           <mat-label>{{"PROJECT_TITLE" | translate}}</mat-label>
@@ -51,6 +51,7 @@
         </mat-form-field>
 
         <!-- Tasks -->
+          @if (formType !== 'edit') {
         <div class="flex flex-col gap-4">
           <div class="flex justify-between items-center">
             <h6>{{"TASKS"|translate}}</h6>
@@ -65,9 +66,10 @@
           </div>
         }
         </div>
+          }
       </div>
 
-      <div class="p-4 flex justify-center">
+      <div class="fixed flex justify-center bottom-0 left-0 right-0  p-4  shadow-md z-10">
         <button mat-raised-button type="submit"  [disabled]="myForm.invalid" [ngClass]="{'primary-button':!myForm.invalid,'disabled-button':myForm.invalid}" >
           {{ (formType === 'create' ? 'CREATE_AND_CONTINUE' : 'SAVE_EDITS') | translate }}
         </button>
