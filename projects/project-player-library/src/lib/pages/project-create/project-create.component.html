@@ -30,7 +30,7 @@
           <mat-chip-listbox [multiple]="true" [required]="true">
             <div class="chip-options-list">
             @for (chip of options; track $index) {
-              <mat-chip-option  [value]="chip.label" (click)="onChipClick(chip)" [selected]="selectedChips.has(chip)">
+              <mat-chip-option  [value]="chip.name" (click)="onChipClick(chip)" [selected]="selectedChips.has(chip)">
                 <div>{{ chip.label }}</div>
                 <mat-icon matChipRemove *ngIf="selectedChips.has(chip)" (click)="onChipClick(chip)">cancel</mat-icon>
               </mat-chip-option>

@@ -78,7 +78,7 @@ export class ProjectCreateComponent extends BackNavigationHandlerComponent imple
 
     (this.options || []).forEach((chip: any) => {
       const match = (data.categories || []).find(
-        (cat: any) => cat.label && chip.label && cat.label === chip.label
+        (cat: any) => cat.name && chip.name && cat.name === chip.name
       );
       if (match) {
         this.selectedChips.add(chip);
