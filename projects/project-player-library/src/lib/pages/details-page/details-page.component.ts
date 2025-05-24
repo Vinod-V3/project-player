@@ -245,10 +245,10 @@ export class DetailsPageComponent implements OnInit {
   }
   onStartObservation(data:any){
     let submissionDetails = data.submissionDetails
-    let enableObserveAgain = data.status == statusType.completed
+    let enableObserveAgain = !(data.status == statusType.completed)
     if(submissionDetails?.observationId){
       console.log("navigate to obser")
-      let path = `/managed-observation-portal/details/${submissionDetails?.name ?? ""}/${submissionDetails?.observationId}/${submissionDetails?.entityId}/${enableObserveAgain}`
+      let path = `/managed-observation-portal/details/${submissionDetails?.observationId}/${submissionDetails?.entityId}/${enableObserveAgain}`
       this.routerService.navigateByHref(path)
     }else{
       if(!this.isOnline){

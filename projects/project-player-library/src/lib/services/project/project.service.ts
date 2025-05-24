@@ -88,9 +88,9 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
       }
       if(result.observationId){
         console.log("Redirecting to observation submission page: ",result)
-        let enableObserveAgain = result?.status == statusType.completed
+        let enableObserveAgain = !(result?.status == statusType.completed)
         let solutionDetails = result?.solutionDetails
-        let path = `/managed-observation-portal/details/${solutionDetails?.name}/${result?.observationId}/${result?.entityId}/${solutionDetails?.allowMultipleAssessemts}`
+        let path = `/managed-observation-portal/details/${result?.observationId}/${result?.entityId}/${solutionDetails?.allowMultipleAssessemts}`
         this.routerService.navigateByHref(path)
         return
       }
