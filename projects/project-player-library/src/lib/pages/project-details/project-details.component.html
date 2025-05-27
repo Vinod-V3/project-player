@@ -6,6 +6,12 @@
     </p>
     <p *ngIf="recommendedFor" class="capitalize">{{"RECOMMENDED_FOR" | translate}}: <span>{{ recommendedFor }}</span></p>
     <p *ngIf="projectDetails?.duration" >{{"DURATION" | translate}}: <span>{{projectDetails.duration}}</span></p>
+    @if (projectDetails?.startDate) {
+      <p class="capitalize">{{"START_DATE"|translate}}: <span>{{ projectDetails.startDate  | date:'dd/MM/yyyy' }}</span></p>
+  }
+  @if (projectDetails?.endDate) {
+      <p class="capitalize">{{"END_DATE"|translate}}: <span>{{ projectDetails.endDate  | date:'dd/MM/yyyy' }}</span></p>
+  }
   </mat-card>
 
   @if (projectDetails?.learningResources?.length > 0) {
