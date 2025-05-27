@@ -4,7 +4,7 @@ import { RoutingService } from '../../services/routing/routing.service';
 import { apiUrls } from '../../constants/urlConstants';
 import { ApiService } from '../../services/api/api.service';
 import { BackNavigationHandlerComponent } from '../../shared/back-navigation-handler/back-navigation-handler.component';
-import { HttpBackend, HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastService } from '../../services/toast/toast.service';
 import { Canvg } from 'canvg';
 @Component({
@@ -124,13 +124,14 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
   loadCertificateSvg() {
     const config = {
       url: apiUrls.CERTIFICATE_URL + this.projectDetails.certificate.osid,
-      headers: {
-        template: this.projectDetails.certificate.templateUrl,
-        accept: this.acceptType,
-      },
     };
+    const headers = new HttpHeaders({
+      template: this.projectDetails.certificate.templateUrl,
+      accept: this.acceptType,
+    });
 
-    this.apiService.get(config).subscribe((res: string) => {
+    this.apiService.get(config, headers).subscribe({
+    next: (res: string) => {
       let template = res;
       if (template.startsWith('data:image/svg+xml,')) {
         template = decodeURIComponent(template.replace(/data:image\/svg\+xml,/, '')).replace(/\<!--\s*[a-zA-Z0-9\-]*\s*--\>/g, '');
@@ -151,8 +152,10 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
           this.renderer.setStyle(svgElement, 'width', '100%');
         }
       }
-    }, error => {
+    },
+    error: () => {
       this.toasterService.showToast('CERTIFICATE_FETCH_FAILED', 'error');
+    }
     });
   }
 
