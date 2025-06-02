@@ -175,5 +175,6 @@
     "VIEW_REPORTS": "रिपोर्ट देखें",
     "CANNOT_GET_PROJECT_DETAILS": "प्रोजेक्ट विवरण प्राप्त नहीं किया जा सका",
     "ADD_TASK_DESCRIPTION_HERE":"यहां कार्य विवरण जोड़ें",
-    "CREATE_NEW_PROGRAM":"नया प्रोग्राम बनाएं"
+    "CREATE_NEW_PROGRAM":"नया प्रोग्राम बनाएं",
+    "CERTIFICATE_GENERATING_WAIT_MSG": "आपकी परियोजना जमा कर दी गई है। यदि आप पात्रता मानदंडों को पूरा करते हैं, तो आपको जल्द ही प्रमाणपत्र प्राप्त होगा।"
 }

@@ -115,7 +115,6 @@ export class SyncService {
         let convertedFile
         if(fileData){
           convertedFile = this.attachmentService.base64ToFile(fileData.data,fileDetails.name)
-          console.log("Converted file: ",convertedFile)
         }else{
           reject()
           return
@@ -135,12 +134,10 @@ export class SyncService {
           url: fileDetails.uploadUrl,
           file: convertedFile
         }
-        console.log("Payload: ",formData)
         const baseUrl = this.dataService.getConfig().baseUrl;
         const uploadUrl = new URL(baseUrl).origin + apiUrls.CLOUD_UPLOAD;
         const headers = new HttpHeaders();
         firstValueFrom(this.customHttp.put(uploadUrl, formData, {headers})).then(data=>{
-          console.log("Data resp from file put: ",data)
           resolve(data)
         }).catch(err=>reject(err))
       })

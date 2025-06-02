@@ -17,6 +17,7 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
   projectDetails: any;
   certificateUrl:any;
   acceptType = 'image/svg+xml'
+  message = "CERTIFICATE_ERROR_MSG"
 
   @ViewChild('certificateContainer', { static: true }) certificateContainer:
     | ElementRef
@@ -50,8 +51,12 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
     this.apiService.post(configForProject).subscribe((res) => {
       this.projectDetails = res.result;
       if (this.projectDetails.certificate) {
-          if (this.projectDetails?.certificate?.eligible && this.projectDetails?.certificate?.osid) {
-            this.loadCertificateSvg();
+          if (this.projectDetails?.certificate?.eligible) {
+            if(this.projectDetails?.certificate?.osid){
+              this.loadCertificateSvg();
+            }else{
+              this.message = "CERTIFICATE_GENERATING_WAIT_MSG"
+            }
           }
       }
     });
