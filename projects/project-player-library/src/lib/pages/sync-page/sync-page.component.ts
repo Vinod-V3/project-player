@@ -78,7 +78,7 @@ export class SyncPageComponent extends BackNavigationHandlerComponent {
     this.syncService.cloudImageUpload(imageDetails).then((success:any) => {
       console.log("Success resp in sync page: ",success)
       if(success?.status == 400){
-        this.toastService.showToast("UPLOAD_FAILED","danger")
+        // this.toastService.showToast("UPLOAD_FAILED","danger")
       }
       this.retryCount =0;
       delete this.attachmentsList[this.imageUploadIndex].cloudStorage;

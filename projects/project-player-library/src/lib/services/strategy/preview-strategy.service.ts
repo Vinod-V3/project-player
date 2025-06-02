@@ -113,7 +113,19 @@ export class TargettedProjectFlow extends GenericFunctions {
           this.apiCallAndNavigate(apiConfig, projectData)
           break;
         case "edit":
-          window.location.href = this.getConfigData("redirectionLinks").profilePage
+          // window.location.href = this.getConfigData("redirectionLinks").profilePage
+          try {
+            const options = {
+              type:"redirect",
+              pathType:"profile"
+            };
+            if ((window as any).FlutterChannel) {
+              (window as any).FlutterChannel.postMessage(options);
+            } else {
+              console.warn("FlutterChannel is not available");
+              window.location.href = this.getConfigData("redirectionLinks").profilePage
+            }
+          } catch (err:any) {}
           break;
         default:
           break;

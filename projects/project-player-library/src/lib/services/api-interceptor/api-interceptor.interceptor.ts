@@ -54,7 +54,19 @@ export class ApiInterceptor implements HttpInterceptor {
       errorMessage = `Error: ${error.error.message}`;
     } else {
       if (error.status === 401) {
-        window.location.href = config?.redirectionLinks?.unauthorizedRedirectUrl
+        // window.location.href = config?.redirectionLinks?.unauthorizedRedirectUrl
+        try {
+          const options = {
+            type:"redirect",
+            pathType:"login"
+          };
+          if ((window as any).FlutterChannel) {
+            (window as any).FlutterChannel.postMessage(options);
+          } else {
+            console.warn("FlutterChannel is not available");
+            window.location.href = config?.redirectionLinks?.unauthorizedRedirectUrl
+          }
+        } catch (err:any) {}
       }
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }

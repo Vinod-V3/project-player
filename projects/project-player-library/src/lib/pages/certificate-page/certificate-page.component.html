@@ -2,7 +2,7 @@
 <lib-header [title]="'CERTIFICATE'"></lib-header>
 @if(projectDetails?.certificate){
 <div>
-    @if (projectDetails?.certificate?.eligible) {
+    @if (projectDetails?.certificate?.eligible && projectDetails?.certificate?.osid) {
         <div class="mt-4 m-3">
             <div class="flex justify-between items-center">
                 <div>
@@ -22,7 +22,7 @@
     @else {
         <div class="flex flex-row justify-center">
             <mat-card class="text-[var(--primary-color)] mt-10 p-5 mx-3">
-                {{"CERTIFICATE_ERROR_MSG"|translate}}
+                {{ message | translate }}
             </mat-card>
         </div>
     }
