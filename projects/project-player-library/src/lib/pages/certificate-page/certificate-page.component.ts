@@ -136,7 +136,8 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
     });
 
     this.apiService.get(config, headers).subscribe({
-    next: (res: string) => {
+    next: (res: any) => {
+      console.log("NExt block: ",res)
       let template = res;
       if (template.startsWith('data:image/svg+xml,')) {
         template = decodeURIComponent(template.replace(/data:image\/svg\+xml,/, '')).replace(/\<!--\s*[a-zA-Z0-9\-]*\s*--\>/g, '');
@@ -158,7 +159,8 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
         }
       }
     },
-    error: () => {
+    error: (error: any) => {
+      console.log("Error block: ",error)
       this.toasterService.showToast('CERTIFICATE_FETCH_FAILED', 'error');
     }
     });
