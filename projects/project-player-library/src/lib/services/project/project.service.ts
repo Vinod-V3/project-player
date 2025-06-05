@@ -81,40 +81,48 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
       const response = await firstValueFrom(this.apiService.post(apiConfig))
       const result = response?.result
       console.log("get assessment api: ",result)
+      localStorage.setItem("responseOne",JSON.stringify(result))
       if(!result){
         this.toastService.showToast("CANNOT_GET_PROJECT_DETAILS","danger")
         return
       }
       if(result.observationId){
         console.log("Redirecting to observation submission page: ",result)
-        let enableObserveAgain = result?.status == statusType.completed
-        let path = `/managed-observation-portal/details/${result?.name}/${result?.observationId}/${result?._id}/${enableObserveAgain}?submissionId=${result?.submissionId}`
+        let enableObserveAgain = !(result?.status == statusType.completed)
+        let solutionDetails = result?.solutionDetails
+        let path = `/observations/details/${result?.observationId}/${result?.entityId}/${solutionDetails?.allowMultipleAssessemts}`
         this.routerService.navigateByHref(path)
         return
       }
+      let redirectionPath = `/observations/task/${result?.solutionId}`
+      this.routerService.navigateByHref(redirectionPath)
+      return
 
-      let templateDetailsApiConfig = {
-        url: `${apiUrls.GET_TEMPLATE_DETAILS}${result?.solutionDetails?._id}`,
-        payload: profileInfo
-      }
+//       let templateDetailsApiConfig = {
+//         url: `${apiUrls.GET_TEMPLATE_DETAILS}${result?.solutionDetails?._id}`,
+//         payload: profileInfo
+//       }
 
-      const templateDetailsResponse = await firstValueFrom(this.apiService.post(templateDetailsApiConfig))
-      const templateDetailsResult = templateDetailsResponse.result
-      console.log("Get template api call response: ",templateDetailsResult)
+//       const templateDetailsResponse = await firstValueFrom(this.apiService.post(templateDetailsApiConfig))
+//       const templateDetailsResult = templateDetailsResponse.result
+//       console.log("Get template api call response: ",templateDetailsResult)
+//       localStorage.setItem("responseTwo",JSON.stringify(templateDetailsResult))
 
-      const hasMultipleEvidences = templateDetailsResult.assessment.evidences.length > 1;
-      const hasMultipleSections = templateDetailsResult.assessment.evidences[0].sections.length > 1;
-      const hasCriteriaReport = templateDetailsResult.solution.criteriaLevelReport && templateDetailsResult.solution.isRubricDriven;
+//       const hasMultipleEvidences = templateDetailsResult.assessment.evidences.length > 1;
+//       const hasMultipleSections = templateDetailsResult.assessment.evidences[0].sections.length > 1;
+//       const hasCriteriaReport = templateDetailsResult.solution.criteriaLevelReport && templateDetailsResult.solution.isRubricDriven;
 
-      if(hasMultipleEvidences || hasMultipleSections || hasCriteriaReport){
-        console.log("Redirecting to domain ECM listing")
-        let path = `/managed-observation-portal/domain/${templateDetailsResult?.observationId}/${templateDetailsResult?.entityId}/${templateDetailsResult?._id}`
-        this.routerService.navigateByHref(path)
-      }else{
-        console.log("Redirecting to QUESTIONIARE page")
-        let path = `/managed-observation-portal/questionnaire?observationId=${templateDetailsResult?.observationId}&entityId${templateDetailsResult?.entityId}&submissionNumber=${templateDetailsResult?.submissionNumber}&evidenceCode=${templateDetailsResult?.assessment?.evidences[0]?.code}&index=0&submissionId=${templateDetailsResult?.submissionId}`
-        this.routerService.navigateByHref(path)
-      }
+//       if(hasMultipleEvidences || hasMultipleSections || hasCriteriaReport){
+//         console.log("Redirecting to domain ECM listing")
+//         let path = `/managed-observation-portal/domain/${templateDetailsResult?.observationId}/${templateDetailsResult?.entityId}/${templateDetailsResult?._id}`
+//         this.routerService.navigateByHref(path)
+//       }else{
+//         console.log("Redirecting to QUESTIONIARE page")
+// let path = `/managed-observation-portal/questionnaire?observationId=${templateDetailsResult?.observationId ?? ""}&entityId=
+//         ${templateDetailsResult?.entityId ?? ""}&submissionNumber=${templateDetailsResult?.submissionNumber ?? ""}&evidenceCode=
+//         ${templateDetailsResult?.assessment?.evidences[0]?.code ?? ""}&index=0&submissionId=${templateDetailsResult?.submissionId ?? ""}`
+//         this.routerService.navigateByHref(path)
+//       }
 
     }catch (error) {
       console.log("Error block: ",error)
