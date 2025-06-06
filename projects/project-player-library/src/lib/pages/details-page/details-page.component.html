@@ -44,7 +44,7 @@
         <div class="p-[8px] mt-2">
           <lib-project-details [projectDetails]="projectDetails"></lib-project-details>
           @if(!submitted && ((projectDetails?.referenceFrom == "link" && projectDetails?.isAPrivateProgram) || projectDetails?.referenceFrom == "fromLibrary")){
-            <mat-accordion>
+            <!-- <mat-accordion>
               <mat-expansion-panel  style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 10px; margin: 12px 0;"
               [expanded]="showProjectShareControl" (opened)="showProjectShareControl=true" (closed)="closeShareControl()">
                 <mat-expansion-panel-header class="flex justify-between py-2">
@@ -65,7 +65,7 @@
                   </div>
                 </div>
               </mat-expansion-panel>
-            </mat-accordion>
+            </mat-accordion> -->
           }
         </div>
       </div>

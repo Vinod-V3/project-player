@@ -7,6 +7,7 @@ import { BackNavigationHandlerComponent } from '../../shared/back-navigation-han
 import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastService } from '../../services/toast/toast.service';
 import { Canvg } from 'canvg';
+import { DataService } from '../../services/data/data.service';
 @Component({
   selector: 'lib-certificate-page',
   templateUrl: './certificate-page.component.html',
@@ -30,7 +31,8 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
     private renderer: Renderer2,
     private apiService: ApiService,
     private toasterService: ToastService,
-    private httpBackend: HttpBackend
+    private httpBackend: HttpBackend,
+    private dataService: DataService
   ) {
     super(routingService);
     const url: UrlTree = this.router.parseUrl(this.router.url);
@@ -135,8 +137,9 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
       accept: this.acceptType,
     });
 
-    this.apiService.get(config, headers).subscribe({
-    next: (res: string) => {
+    (this.apiService as any).http.get(`${this.dataService.getConfig().baseUrl}/${config.url}`, { headers, responseType: 'text' as 'json' }).subscribe({
+    next: (res: any) => {
+      console.log("NExt block: ",res)
       let template = res;
       if (template.startsWith('data:image/svg+xml,')) {
         template = decodeURIComponent(template.replace(/data:image\/svg\+xml,/, '')).replace(/\<!--\s*[a-zA-Z0-9\-]*\s*--\>/g, '');
@@ -158,7 +161,8 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
         }
       }
     },
-    error: () => {
+    error: (error: any) => {
+      console.log("Error block: ",error)
       this.toasterService.showToast('CERTIFICATE_FETCH_FAILED', 'error');
     }
     });
