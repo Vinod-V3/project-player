@@ -19,12 +19,10 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
   certificateUrl:any;
   acceptType = 'image/svg+xml'
   message = "CERTIFICATE_ERROR_MSG"
-  certificateUrlTwo:any
 
   @ViewChild('certificateContainer', { static: true }) certificateContainer:
     | ElementRef
     | undefined;
-  @ViewChild('certificateContainerTwo', { static: true }) certificateContainerTwo:| ElementRef | undefined;
   private customHttp: HttpClient;
 
   constructor(
@@ -58,7 +56,6 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
           if (this.projectDetails?.certificate?.eligible) {
             if(this.projectDetails?.certificate?.osid){
               this.loadCertificateSvg();
-              this.getCertTwo()
             }else{
               this.message = "CERTIFICATE_GENERATING_WAIT_MSG"
             }
@@ -140,7 +137,7 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
       accept: this.acceptType,
     });
 
-    this.apiService.get(config, headers).subscribe({
+    (this.apiService as any).http.get(`${this.dataService.getConfig().baseUrl}/${config.url}`, { headers, responseType: 'text' as 'json' }).subscribe({
     next: (res: any) => {
       console.log("NExt block: ",res)
       let template = res;
@@ -168,47 +165,6 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
       console.log("Error block: ",error)
       this.toasterService.showToast('CERTIFICATE_FETCH_FAILED', 'error');
     }
-    });
-  }
-
-  getCertTwo(){
-    const config = {
-      url: apiUrls.CERTIFICATE_URL + this.projectDetails.certificate.osid,
-    };
-
-    const headers = new HttpHeaders({
-      template: this.projectDetails.certificate.templateUrl,
-      accept: this.acceptType
-    });
-
-    (this.apiService as any).http.get(
-      `${this.dataService.getConfig().baseUrl}/${config.url}`,
-      { headers, responseType: 'text' as 'json' }
-    ).subscribe({
-      next: (res: any) => {
-        console.log("GET CERT 2",res)
-        let template = res;
-        if (template.startsWith('data:image/svg+xml,')) {
-          template = decodeURIComponent(template.replace(/data:image\/svg\+xml,/, '')).replace(/\<!--\s*[a-zA-Z0-9\-]*\s*--\>/g, '');
-        }
-
-        this.certificateUrlTwo = template;
-
-        if (this.certificateContainerTwo) {
-          this.renderer.setProperty(
-            this.certificateContainerTwo.nativeElement,
-            'innerHTML',
-            this.certificateUrlTwo
-          );
-
-          const svgElement = this.certificateContainerTwo.nativeElement.querySelector('svg');
-          if (svgElement) {
-            this.renderer.setStyle(svgElement, 'object-fit', 'contain');
-            this.renderer.setStyle(svgElement, 'width', '100%');
-          }
-        }
-      },
-      error: (err:any) => console.log("Error block TWO: ", err)
     });
   }
 
