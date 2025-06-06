@@ -127,7 +127,6 @@ export class MainPlayerComponent implements OnInit {
           return
         }
         if(this.projectData.referenceFrom == "observation"){
-          console.log("PROJECT DATA: ",this.projectData)
           this.routerService.navigate("/project-details",{ type:'template', ...this.projectData },{ replaceUrl:true })
           return
         }

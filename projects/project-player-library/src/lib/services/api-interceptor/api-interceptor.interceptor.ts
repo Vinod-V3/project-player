@@ -57,7 +57,7 @@ export class ApiInterceptor implements HttpInterceptor {
       errorMessage = `Error: ${error.error.message}`;
     } else {
       if (error.status === 401) {
-        window.location.href = config?.redirectionLinks?.unauthorizedRedirectUrl
+        window.location.href = config?.redirectionLinks?.unauthorizedRedirectUrl ?? "/";
       }
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
