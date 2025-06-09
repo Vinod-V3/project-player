@@ -64,10 +64,10 @@
         </div>
         }
         @if (projectDetails?.startDate) {
-            <div><strong>{{"START_DATE"|translate}}:</strong> {{ projectDetails.startDate  | date:'MM/dd/yyyy' }}</div>
+            <div><strong>{{"START_DATE"|translate}}:</strong> {{ projectDetails.startDate  | date:'dd/MM/yyyy' }}</div>
         }
         @if (projectDetails?.endDate) {
-            <div ><strong>{{"END_DATE"|translate}}:</strong> {{ projectDetails.endDate  | date:'MM/dd/yyyy' }}</div>
+            <div ><strong>{{"END_DATE"|translate}}:</strong> {{ projectDetails.endDate  | date:'dd/MM/yyyy' }}</div>
         }
         @if (projectDetails?.duration) {
             <div *ngIf=""><strong>{{"DURATION"|translate}}:</strong> {{ projectDetails.duration }}</div>

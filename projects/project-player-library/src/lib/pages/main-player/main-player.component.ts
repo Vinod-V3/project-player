@@ -126,6 +126,10 @@ export class MainPlayerComponent implements OnInit {
           this.routerService.navigate(window.location.pathname, urlQueryParams, { replaceUrl: true })
           return
         }
+        if(this.projectData.referenceFrom == "observation"){
+          this.routerService.navigate("/project-details",{ type:'template', ...this.projectData },{ replaceUrl:true })
+          return
+        }
         if(this.projectData.referenceFrom == "library"){
           this.routerService.navigate("/project-details",{ type:'template', ...this.projectData },{ replaceUrl:true })
           return
@@ -145,7 +149,7 @@ export class MainPlayerComponent implements OnInit {
         this.toastService.showToast("USER_NOT_LOGGEDIN_MSG","danger")
         setTimeout(() => {
           history.replaceState(null, '', '/');
-          window.location.href = '/'
+          window.location.href = this.dataService.getConfig()?.redirectionLinks?.unauthorizedRedirectUrl ?? "/"
         }, 1000);
       }
     }

@@ -10,11 +10,12 @@
       <div mat-dialog-content >
         <ng-container *ngIf="dialogData?.required; else confirmationOnly">
           <mat-form-field style="width: 100%" floatLabel="always">
-            <mat-label class="flex">{{ dialogData?.label  | translate}}</mat-label>
+            <mat-label >{{ dialogData?.label  | translate}}</mat-label>
             <input
               matInput
               [(ngModel)]="data"
               [required]="dialogData?.required"
+              [placeholder]="dialogData.placeholder | translate"
             />
           </mat-form-field>
         </ng-container>

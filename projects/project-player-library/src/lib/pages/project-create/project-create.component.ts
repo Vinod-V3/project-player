@@ -78,7 +78,7 @@ export class ProjectCreateComponent extends BackNavigationHandlerComponent imple
 
     (this.options || []).forEach((chip: any) => {
       const match = (data.categories || []).find(
-        (cat: any) => cat.label && chip.label && cat.label === chip.label
+        (cat: any) => cat.name && chip.name && cat.name === chip.name
       );
       if (match) {
         this.selectedChips.add(chip);
@@ -145,8 +145,9 @@ export class ProjectCreateComponent extends BackNavigationHandlerComponent imple
   addTask(): void {
     const dialogRef = this.dialog.open(DialogInputComponent, {
       data: {
-        header: 'ADD_TASK',
-        label: 'ENTER_TASK_DESC',
+        header: 'ADD_NEW_TASK',
+        label: 'TASK_DESCRIPTION',
+        placeholder:'ADD_TASK_DESCRIPTION_HERE',
         required: true,
         showCancel: true,
         buttonText: { ok: 'ADD' }

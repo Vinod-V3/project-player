@@ -43,7 +43,6 @@ export class ProjectOperationComponent extends BackNavigationHandlerComponent {
         this.projectDetails = data.data;
 
         if (this.formType === 'edit') {
-          console.log("here is edit");
           this.startDate = this.projectDetails.startDate;
           this.endDate = this.projectDetails.endDate;
           if(this.projectDetails.programName){
@@ -186,6 +185,7 @@ async viewProject() {
         !(Array.isArray(v) && v.length === 0)
       )
     );
+    rawDataEdit['tasks'] = this.projectDetails.tasks ? this.projectDetails.tasks : [];
     let updatePayload = {
       key: rawDataEdit['_id'],
       data: rawDataEdit

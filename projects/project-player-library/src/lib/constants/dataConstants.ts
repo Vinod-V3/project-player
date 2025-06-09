@@ -101,9 +101,10 @@ export const shareProjectPopupData = {
             inputDailog: true,
             showFilters: false,
               inputDialogConfig: {
-                dialogtitle: 'CREATE_PROGRAM',
-                header: 'ENTER_PROGRAM_NAME',
-                label: 'PROGRAM_NAME',
+                dialogtitle: 'CREATE_NEW_PROGRAM',
+                header: 'CREATE_PROGRAM',
+                label: 'ENTER_PROGRAM_NAME',
+                placeholder:'PROGRAM_NAME',
                 required: true,
                 showCancel: true,
                 buttonText: { ok: 'SAVE', cancel: 'CANCEL' },

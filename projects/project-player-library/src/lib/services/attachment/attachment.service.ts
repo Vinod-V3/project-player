@@ -23,7 +23,6 @@ export class AttachmentService {
         resolve(base64String);
       };
       reader.onerror = (err) => {
-        console.log('FILE UPLOAD ERROR: ', err);
         reject(err);
       };
       reader.readAsDataURL(file);
