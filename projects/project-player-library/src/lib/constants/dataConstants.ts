@@ -110,7 +110,9 @@ export const shareProjectPopupData = {
                 buttonText: { ok: 'SAVE', cancel: 'CANCEL' },
                 width: '450px'
               },
-              addButton:"ADD_PROGRAM"
+              addButton:"ADD_PROGRAM",
+              showSearchFilter: false,
+              showLoadMore: true
             },
             entity: {
                 type: 'entity',
@@ -120,7 +122,8 @@ export const shareProjectPopupData = {
                 isMultiSelect: false,
                 inputDailog: false,
                 showFilters: true,
-                addButton:"ADD_ENTITY"
+                addButton:"ADD_ENTITY",
+                showSearchFilter: true
               },
               learningResource:{
                 type: 'learningResource',
@@ -130,7 +133,8 @@ export const shareProjectPopupData = {
                 isMultiSelect: true,
                 inputDailog: false,
                 showFilters: true,
-                addButton:"ADD_LEARNING_RESOURCE"
+                addButton:"ADD_LEARNING_RESOURCE",
+                showSearchFilter: true
               }
         }
 

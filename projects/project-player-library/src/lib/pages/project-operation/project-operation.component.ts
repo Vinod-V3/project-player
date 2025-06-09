@@ -43,7 +43,6 @@ export class ProjectOperationComponent extends BackNavigationHandlerComponent {
         this.projectDetails = data.data;
 
         if (this.formType === 'edit') {
-          console.log("here is edit");
           this.startDate = this.projectDetails.startDate;
           this.endDate = this.projectDetails.endDate;
           if(this.projectDetails.programName){
@@ -138,7 +137,7 @@ async viewProject() {
     endDate: this.endDate,
     programName: this.selectedProgram?.name,
     programId: this.selectedProgram?.id,
-    isPrivateProgram: this.selectedProgram?.name ? true : undefined,
+    isAPrivateProgram: this.selectedProgram?.name ? true : undefined,
     entityId: this.selectedEntity?._id,
     entityName: this.selectedEntity?.name,
     learningResources: this.selectedLearningResource?.length ? this.selectedLearningResource : []

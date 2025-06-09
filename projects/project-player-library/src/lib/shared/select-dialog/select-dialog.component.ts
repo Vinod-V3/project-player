@@ -202,14 +202,14 @@ export class SelectDialogComponent implements OnInit {
   getListData(searchText = '', filter?: { value?: string }) {
     if (this.type === 'program') {
       const config = {
-        url: `${apiUrls.PROGRAM}?isAPrivateProgram=${this.isAPrivateProgram}`,
+        url: `${apiUrls.PROGRAM}?isAPrivateProgram=${this.isAPrivateProgram}&search=${searchText}`,
         payload: {}
       };
 
       this.apiService.post(config).subscribe((res) => {
         const result = res.result;
         this.count = result.count;
-        const newData = Array.isArray(result.data) ? result.data.map((item: { name: any; id: any; }) => ({
+        const newData = Array.isArray(result) ? result.map((item: any) => ({
           ...item,
           id: item.name || item.id
         })) : [];

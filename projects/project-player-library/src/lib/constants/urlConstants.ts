@@ -6,7 +6,7 @@ export const apiUrls = {
     PROJECT_TASK_STATUS: "userProjects/mlprojects/v1/tasksStatus",
     GET_TEMPLATE_DETAILS: "solutions/mlcore/v1/details/",
     GET_TEMPLATE_BY_LINK: "project/v1/project/templates/details",
-    IMPORT_LIBRARY: "project/v1/userProjects/importFromLibrary/",
+    IMPORT_LIBRARY: "userProjects/mlprojects/v1/importFromLibrary/",
     START_ASSESSMENT: "userProjects/mlprojects/v1/solutionDetails/",
     GET_TEMPLATE_BY_EXTERNAL_ID: "project/mlprojects/v1/templates/details/",
     PROGRAM:"users/mlcore/v1/programs",

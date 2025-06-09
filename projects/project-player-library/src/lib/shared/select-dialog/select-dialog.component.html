@@ -15,6 +15,7 @@
   }
 
   <!-- Search -->
+  @if(dialogData?.showSearchFilter){
   <mat-form-field class="w-full custom-search" appearance="outline">
     <mat-icon matPrefix>search</mat-icon>
 
@@ -35,6 +36,7 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
+  }
 
   <!-- Filters -->
   @if (dialogData?.showFilters) {
@@ -68,17 +70,19 @@
           </mat-list-option>
         </mat-selection-list>
 
-        @if (listData.length !== count) {
+        @if(!dialogData?.showLoadMore){
+        @if ((listData.length !== count)) {
           <div class="text-center mt-4">
             <button mat-flat-button class="primary-button" (click)="loadMore()">{{"LOAD_MORE" | translate}}</button>
           </div>
         }
+        }
     </ng-container>
     }
     @else{
-    <ng-template >
+    <div>
       <h3 class="text-center text-gray-500 p-4">{{ 'NO_SOLUTION_FOUND' | translate }}</h3>
-    </ng-template>
+    </div>
     }
   </div>
 
