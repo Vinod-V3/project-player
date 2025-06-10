@@ -56,9 +56,11 @@
       </mat-form-field>
       @if(selectedProgram) {
           <div  class="flex justify-between items-center p-4 bg-white rounded w-full">
-              <span class="truncate max-w-[85%]">{{ selectedProgram.name }}</span>
+            <span class="truncate max-w-[85%]">{{ selectedProgram.name }}</span>
+            @if(projectDetails?.isAPrivateProgram){
               <mat-icon class="cursor-pointer primary-icon ml-2 flex-shrink-0" (click)="confirmDelete('program')">cancel</mat-icon>
-            </div>
+            }
+          </div>
       }
     </div>
 

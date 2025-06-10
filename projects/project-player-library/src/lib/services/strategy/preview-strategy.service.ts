@@ -77,8 +77,8 @@ export class LibraryProjectFlow extends GenericFunctions {
 export class NonTargettedProjectFlow extends GenericFunctions {
   async start(projectData:any){
     let apiConfig = {
-      url: `${apiUrls.GET_PROJECT_DETAILS}?solutionId=${projectData.solutionId}`,
-      payload: { ...this.getConfigData("profileInfo"), type: "improvementProject", referenceFrom: "link", link: projectData.link }
+      url: `${apiUrls.IMPORT_LIBRARY}${projectData._id}?isATargetedSolution=false`,
+      payload: { programId: projectData?.programId || projectData?.programInformation?.programId, solutionId: projectData.solutionId }
     }
 
     const response = await this.showShareDataPopup()
