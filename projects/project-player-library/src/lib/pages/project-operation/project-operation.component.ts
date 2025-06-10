@@ -48,7 +48,8 @@ export class ProjectOperationComponent extends BackNavigationHandlerComponent {
           if(this.projectDetails.programName){
             this.selectedProgram = {
               name: this.projectDetails.programName,
-              id: this.projectDetails.programId
+              _id: this.projectDetails.programId,
+              isAPrivateProgram: this.projectDetails.isAPrivateProgram
             };
           }
           if(this.projectDetails.entityName){
@@ -136,8 +137,8 @@ async viewProject() {
     startDate: this.startDate,
     endDate: this.endDate,
     programName: this.selectedProgram?.name,
-    programId: this.selectedProgram?.id,
-    isAPrivateProgram: this.selectedProgram?.name ? true : undefined,
+    programId: this.selectedProgram?._id,
+    isAPrivateProgram: this.selectedProgram.isAPrivateProgram ? true : false,
     entityId: this.selectedEntity?._id,
     entityName: this.selectedEntity?.name,
     learningResources: this.selectedLearningResource?.length ? this.selectedLearningResource : []

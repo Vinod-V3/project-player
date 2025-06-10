@@ -45,6 +45,7 @@
       <!-- program -->
   <div class="p-4 flex flex-col gap-2">
       <h3 class="text-lg font-semibold">{{ "SELECT_PROGRAM" | translate }}</h3>
+      @if(!selectedProgram){
       <mat-form-field class="w-full" appearance="fill">
         <input
           matInput
@@ -54,10 +55,11 @@
         />
         <mat-icon matSuffix>arrow_drop_down</mat-icon>
       </mat-form-field>
+      }
       @if(selectedProgram) {
           <div  class="flex justify-between items-center p-4 bg-white rounded w-full">
             <span class="truncate max-w-[85%]">{{ selectedProgram.name }}</span>
-            @if(projectDetails?.isAPrivateProgram){
+            @if(selectedProgram?.isAPrivateProgram){
               <mat-icon class="cursor-pointer primary-icon ml-2 flex-shrink-0" (click)="confirmDelete('program')">cancel</mat-icon>
             }
           </div>

@@ -38,13 +38,19 @@ export class DetailsPageComponent implements OnInit {
     this.network.isOnline$.subscribe((status)=>{
       this.isOnline=status
     })
+    // const urlTree: UrlTree = this.router.parseUrl(this.router.url);
+    // const id = urlTree.queryParams['id'];
+    // this.selectedTabIndex = urlTree.queryParams['tab'] || 0
+    // this.getData(id)
+    console.log("constructor is called")
+  }
+
+  ngOnInit(): void {
+    console.log("Oninit is called")
     const urlTree: UrlTree = this.router.parseUrl(this.router.url);
     const id = urlTree.queryParams['id'];
     this.selectedTabIndex = urlTree.queryParams['tab'] || 0
     this.getData(id)
-  }
-
-  ngOnInit(): void {
   }
 
   getData(id:any){
