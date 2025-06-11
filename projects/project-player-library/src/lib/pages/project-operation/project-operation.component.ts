@@ -138,7 +138,7 @@ async viewProject() {
     endDate: this.endDate,
     programName: this.selectedProgram?.name,
     programId: this.selectedProgram?._id,
-    isAPrivateProgram: this.selectedProgram.isAPrivateProgram ? true : false,
+    isAPrivateProgram: this.selectedProgram?.hasOwnProperty('isAPrivateProgram') ? this.selectedProgram?.isAPrivateProgram : null,
     entityId: this.selectedEntity?._id,
     entityName: this.selectedEntity?.name,
     learningResources: this.selectedLearningResource?.length ? this.selectedLearningResource : []
@@ -298,6 +298,11 @@ async confirmPopup(){
   return dialogRef.afterClosed().toPromise();
 }
 
+ngOnDestroy(){
+  if(this.formType === 'create'){
+    this.db.deleteData(this.key)
+  }
+}
 }
 
 
