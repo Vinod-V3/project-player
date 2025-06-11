@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { UtilsService } from '../../services/utils/utils.service';
 
 @Component({
   selector: 'lib-project-details',
@@ -13,6 +14,9 @@ validationTexts!: string[];
 learningResources: any[] = [];
 categories:any;
 recommendedFor:any
+
+  constructor(private utils: UtilsService){}
+
 ngOnChanges(changes: SimpleChanges): void {
   if (changes['projectDetails']) {
     this.learningResources = this.projectDetails?.learningResources || [];
@@ -49,8 +53,18 @@ getCertificateCriteria(): string[] {
   return this.validationTexts;
 }
 
-openResource(data:any){
-  window.open(data.link, '_blank');
+async openResource(data:any){
+  const redirectionConfig = {
+    title: data?.name,
+    url: data?.link,
+    id: data?.id,
+    type:"redirect",
+    pathType:"resources"
+  };
+  let response = await this.utils.postMessageListener(redirectionConfig)
+  if(!response){
+    window.open(data.link, '_blank');
+  }
 }
 
 }

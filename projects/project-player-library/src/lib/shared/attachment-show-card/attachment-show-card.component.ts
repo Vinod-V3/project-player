@@ -50,7 +50,17 @@ export class AttachmentShowCardComponent {
     }else if(data.type.includes('application')){
       let url = await this.getPreviewUrl(data)
       let previewData = {type: "file", url: url}
-      this.utilService.viewFile(previewData.url)
+      const options = {
+        type: "preview",
+        title: data.name,
+        fileType: "pdf",
+        isBase64: url.startsWith('data:') ? true : false,
+        url: url
+      }
+      let response = await this.utilService.postMessageListener(options)
+      if(!response){
+        this.utilService.viewFile(previewData.url)
+      }
     }else{
       let url = data.name;
       if (!/^https?:\/\//i.test(url)) {
