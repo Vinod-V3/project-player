@@ -3,6 +3,7 @@ import { DbService } from '../../services/db/db.service';
 import { RoutingService } from '../../services/routing/routing.service';
 import { Router, UrlTree } from '@angular/router';
 import { BackNavigationHandlerComponent } from '../../shared/back-navigation-handler/back-navigation-handler.component';
+import { UtilsService } from '../../services/utils/utils.service';
 
 @Component({
   selector: 'lib-learning-resources',
@@ -14,7 +15,7 @@ export class LearningResourcesComponent extends BackNavigationHandlerComponent i
   id: any;
   learningResources: any;
 
-  constructor(private db: DbService, private routerService: RoutingService, private router: Router) {
+  constructor(private db: DbService, private routerService: RoutingService, private router: Router, private utils: UtilsService) {
     super(routerService)
   }
 
@@ -38,7 +39,17 @@ export class LearningResourcesComponent extends BackNavigationHandlerComponent i
   }
 
 
-  openResource(data: any) {
-    window.open(data.link, '_blank');
+  async openResource(data: any) {
+    const redirectionConfig = {
+      title: data.name,
+      url: data.link,
+      id: data.id,
+      type:"redirect",
+      pathType:"resources"
+    };
+    let response = await this.utils.postMessageListener(redirectionConfig)
+    if(!response){
+      window.open(data.link, '_blank');
+    }
   }
 }

@@ -6,7 +6,7 @@
         <div class="mt-4 m-3">
             <div class="flex justify-between items-center">
                 <div>
-                    <h4 class="text-lg " >{{projectDetails?.title}}</h4>
+                    <h4 class="text-lg break-words [word-break:break-word]">{{projectDetails?.title}}</h4>
                     <p *ngIf="projectDetails?.certificate?.issuedOn" class="text-gray-600">{{ ( projectDetails?.certificate?.issuedOn | date : 'MMM dd, YYYY')  }}</p>
                 </div>
                 <div>

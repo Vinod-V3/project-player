@@ -150,7 +150,7 @@ export class SelectDialogComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe((name: string) => {
         if (name) {
-          this.dialogRef.close({ name });
+          this.dialogRef.close({ name, isAPrivateProgram: true });
         }
       });
     } catch (err) {
@@ -211,7 +211,7 @@ export class SelectDialogComponent implements OnInit {
         this.count = result.count;
         const newData = Array.isArray(result) ? result.map((item: any) => ({
           ...item,
-          id: item.name || item.id
+          id: item.id || item._id
         })) : [];
 
         this.mergeListData(newData);
