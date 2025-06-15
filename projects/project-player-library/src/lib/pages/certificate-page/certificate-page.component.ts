@@ -139,7 +139,6 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
 
     (this.apiService as any).http.get(`${this.dataService.getConfig().baseUrl}/${config.url}`, { headers, responseType: 'text' as 'json' }).subscribe({
     next: (res: any) => {
-      console.log("NExt block: ",res)
       let template = res;
       if (template.startsWith('data:image/svg+xml,')) {
         template = decodeURIComponent(template.replace(/data:image\/svg\+xml,/, '')).replace(/\<!--\s*[a-zA-Z0-9\-]*\s*--\>/g, '');
@@ -162,7 +161,6 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
       }
     },
     error: (error: any) => {
-      console.log("Error block: ",error)
       this.toasterService.showToast('CERTIFICATE_FETCH_FAILED', 'error');
     }
     });
