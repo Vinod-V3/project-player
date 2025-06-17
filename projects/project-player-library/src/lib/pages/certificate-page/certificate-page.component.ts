@@ -8,6 +8,7 @@ import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastService } from '../../services/toast/toast.service';
 import { Canvg } from 'canvg';
 import { DataService } from '../../services/data/data.service';
+import { UtilsService } from '../../services/utils/utils.service';
 @Component({
   selector: 'lib-certificate-page',
   templateUrl: './certificate-page.component.html',
@@ -32,7 +33,8 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
     private apiService: ApiService,
     private toasterService: ToastService,
     private httpBackend: HttpBackend,
-    private dataService: DataService
+    private dataService: DataService,
+    private utils: UtilsService
   ) {
     super(routingService);
     const url: UrlTree = this.router.parseUrl(this.router.url);
@@ -166,4 +168,56 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
     });
   }
 
+  async downloadCertificate(type: any) {
+    if (!this.certificateContainer) return;
+  
+    const svgElement = this.certificateContainer.nativeElement.querySelector('svg');
+    if (!svgElement) {
+      console.error('SVG element not found');
+      return;
+    }
+  
+    const svgString = new XMLSerializer().serializeToString(svgElement);
+    const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+
+    const url = URL.createObjectURL(svgBlob);
+  
+    const scaleFactor = 3;
+    const img = new Image();
+    img.src = url;
+  
+    await new Promise((resolve) => (img.onload = resolve));
+  
+    let width = svgElement.viewBox?.baseVal?.width || svgElement.getBoundingClientRect().width || 1200;
+    let height = svgElement.viewBox?.baseVal?.height || svgElement.getBoundingClientRect().height || 900;
+    const canvas = document.createElement('canvas');
+    canvas.width = width * scaleFactor;
+    canvas.height = height * scaleFactor;
+  
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    ctx?.scale(scaleFactor, scaleFactor);
+    ctx?.drawImage(img, 0, 0, width, height);
+  
+    const pngDataUrl = canvas.toDataURL('image/png');
+  
+    URL.revokeObjectURL(url);
+  
+    const options = {
+      type: 'download',
+      title: this.generateName(),
+      fileType: type,
+      isBase64: true,
+      url: pngDataUrl
+    };
+  
+    let response = await this.utils.postMessageListener(options);
+  }
+
+  generateName(){
+    const now = new Date();
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const formattedDateTime = `${pad(now.getDate())}-${pad(now.getMonth() + 1)}-${now.getFullYear()}-${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}`;
+    return `${this.projectDetails?.title}_${formattedDateTime}`;
+  }
 }
