@@ -198,17 +198,32 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
     if (!ctx) return;
     ctx?.scale(scaleFactor, scaleFactor);
     ctx?.drawImage(img, 0, 0, width, height);
+
+    let finalDataUrl:any
   
-    const pngDataUrl = canvas.toDataURL('image/png');
-  
-    URL.revokeObjectURL(url);
+    if(type == "png"){
+      finalDataUrl = canvas.toDataURL('image/png');
+      URL.revokeObjectURL(url);
+    }else{
+      const jpegData = canvas.toDataURL('image/jpeg', 0.7);
+      URL.revokeObjectURL(url);
+      const { jsPDF } = (window as any).jspdf;
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'pt',
+        format: [canvas.width, canvas.height],
+      });
+    
+      pdf.addImage(jpegData, 'JPEG', 0, 0, canvas.width, canvas.height);
+      finalDataUrl = pdf.output('datauristring');
+    }
   
     const options = {
       type: 'download',
       title: this.generateName(),
       fileType: type,
       isBase64: true,
-      url: pngDataUrl
+      url: finalDataUrl
     };
   
     let response = await this.utils.postMessageListener(options);
