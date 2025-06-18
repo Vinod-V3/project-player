@@ -68,8 +68,8 @@ export class ProjectCreateComponent extends BackNavigationHandlerComponent imple
   // Also syncs form categories with selectedChips for chip-based UI
   buildForm(data: any = {}) {
     this.myForm = this.fb.group({
-      title: [data.title || '', [Validators.required, Validators.maxLength(100)]],
-      description: [data.description || '', [Validators.required, Validators.maxLength(500)]],
+      title: [data.title || '', [Validators.required]],
+      description: [data.description || '', [Validators.required]],
       categories: [data.categories || [], Validators.required],
       tasks: [data.tasks || []]
     });
