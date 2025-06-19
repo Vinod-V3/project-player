@@ -170,6 +170,7 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
 
   async downloadCertificate(type: any) {
     if (!this.certificateContainer) return;
+    this.toasterService.showToast('CERTIFICATE_DOWNLOADING_MSG', 'success');
   
     const svgElement = this.certificateContainer.nativeElement.querySelector('svg');
     if (!svgElement) {

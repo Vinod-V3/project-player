@@ -176,5 +176,6 @@
     "CANNOT_GET_PROJECT_DETAILS": "Cannot get project details",
     "ADD_TASK_DESCRIPTION_HERE":"Add task description here",
     "CREATE_NEW_PROGRAM":"Create new program",
-    "CERTIFICATE_GENERATING_WAIT_MSG":"Your project is submitted. You will receive a certificate soon if you meet the eligibility criteria."
+    "CERTIFICATE_GENERATING_WAIT_MSG":"Your project is submitted. You will receive a certificate soon if you meet the eligibility criteria.",
+    "CERTIFICATE_DOWNLOADING_MSG": "Certificate is getting downloaded"
 }

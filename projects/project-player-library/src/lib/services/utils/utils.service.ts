@@ -185,7 +185,7 @@ export class UtilsService {
       tasks:[],
       hasAcceptedTAndC: false,
       isDeleted: false,
-      status: "started",
+      status: statusType.started,
     };
     return metaData;
   }
