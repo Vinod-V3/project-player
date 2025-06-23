@@ -98,29 +98,29 @@ export class TargettedProjectFlow extends GenericFunctions {
       payload: { ...this.getConfigData("profileInfo"), type: "improvementProject" }
     }
 
-    if(projectData.certificateTemplateId){
-      let dialogData= {
-        content :"CERTIFICATE_NAME_CONFIRMATION_MSG",
-        actionButtons: [
-          { label: "CONFIRM", action: "confirm" },
-          { label: "EDIT", action: "edit" }
-        ]
-      }
-      const response = await this.showDialog(dialogData)
-      if(!response) return
-      switch (response) {
-        case "confirm":
-          this.apiCallAndNavigate(apiConfig, projectData)
-          break;
-        case "edit":
-          window.location.href = this.getConfigData("redirectionLinks").profilePage
-          break;
-        default:
-          break;
-      }
-    }else{
+    // if(projectData.certificateTemplateId){
+    //   let dialogData= {
+    //     content :"CERTIFICATE_NAME_CONFIRMATION_MSG",
+    //     actionButtons: [
+    //       { label: "CONFIRM", action: "confirm" },
+    //       { label: "EDIT", action: "edit" }
+    //     ]
+    //   }
+    //   const response = await this.showDialog(dialogData)
+    //   if(!response) return
+    //   switch (response) {
+    //     case "confirm":
+    //       this.apiCallAndNavigate(apiConfig, projectData)
+    //       break;
+    //     case "edit":
+    //       window.location.href = this.getConfigData("redirectionLinks").profilePage
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    // }else{
       this.apiCallAndNavigate(apiConfig, projectData)
-    }
+    // }
   }
 }
 
