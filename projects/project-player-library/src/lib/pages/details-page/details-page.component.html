@@ -19,7 +19,8 @@
                 <mat-progress-bar class="progress-bar primary-icon"   mode="determinate" [value]="progressValue"></mat-progress-bar>
             </mat-card-content>
             <mat-card-content class="after-submission"  *ngIf="submitted">
-                <mat-icon aria-hidden="false" aria-label="Example verified icon" fontIcon="verified" style="color: green;" class="min-w-8"></mat-icon>
+                <!-- <mat-icon aria-hidden="false" aria-label="Example verified icon" fontIcon="verified" style="color: green;" class="min-w-8"></mat-icon> -->
+                <img src="/managed-learn/assets/images/badge.svg" alt="badge-image" />
                 <h3>{{"PROGRESS_COMPLETE" | translate}}</h3>
             </mat-card-content>
         </mat-card>

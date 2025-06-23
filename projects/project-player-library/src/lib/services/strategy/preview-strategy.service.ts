@@ -23,6 +23,10 @@ export abstract class GenericFunctions {
     return await this.utils.showDialogPopup(dialogData)
   }
 
+  async showCertificatePopup(){
+    return await this.utils.showCertificateNamePopup()
+  }
+
   async apiCallAndNavigate(config:any, projectDetails:any){
     if(projectDetails.isPreview){
       this.routerService.navigate("/project-details",{ type: "details", id: projectDetails._id, projectId: projectDetails._id },{ replaceUrl: true })
@@ -99,37 +103,16 @@ export class TargettedProjectFlow extends GenericFunctions {
     }
 
     if(projectData.certificateTemplateId){
-      let dialogData= {
-        content :"CERTIFICATE_NAME_CONFIRMATION_MSG",
-        actionButtons: [
-          { label: "CONFIRM", action: "confirm" },
-          { label: "EDIT", action: "edit" }
-        ]
+      const key = localStorage.getItem("userId")
+      const value = key ? localStorage.getItem(key) === "true" : false
+
+      if(value){
+        this.apiCallAndNavigate(apiConfig, projectData)
+        return
       }
-      const response = await this.showDialog(dialogData)
+      const response = await this.showCertificatePopup()
       if(!response) return
-      switch (response) {
-        case "confirm":
-          this.apiCallAndNavigate(apiConfig, projectData)
-          break;
-        case "edit":
-          // window.location.href = this.getConfigData("redirectionLinks").profilePage
-          try {
-            const options = {
-              type:"redirect",
-              pathType:"profile"
-            };
-            if ((window as any).FlutterChannel) {
-              (window as any).FlutterChannel.postMessage(options);
-            } else {
-              console.warn("FlutterChannel is not available");
-              window.location.href = this.getConfigData("redirectionLinks").profilePage
-            }
-          } catch (err:any) {}
-          break;
-        default:
-          break;
-      }
+      this.apiCallAndNavigate(apiConfig, projectData)
     }else{
       this.apiCallAndNavigate(apiConfig, projectData)
     }
