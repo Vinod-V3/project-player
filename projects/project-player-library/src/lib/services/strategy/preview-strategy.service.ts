@@ -103,7 +103,7 @@ export class TargettedProjectFlow extends GenericFunctions {
         content :"CERTIFICATE_NAME_CONFIRMATION_MSG",
         actionButtons: [
           { label: "CONFIRM", action: "confirm" },
-          { label: "EDIT", action: "edit" }
+          // { label: "EDIT", action: "edit" }
         ]
       }
       const response = await this.showDialog(dialogData)
