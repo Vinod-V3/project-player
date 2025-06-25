@@ -37,9 +37,11 @@
             }
 
             @if (showAddOption) {
-              <mat-chip  class="flex items-center" (click)="addOption()">
-                <mat-icon>add_circle</mat-icon>
-                <span>{{"ADD"|translate}}</span>
+              <mat-chip  class="flex items-center cursor-pointer" (click)="addOption()">
+                <div class="flex flex-row justify-center items-center">
+                  <mat-icon class="add-icon mr-1">add_circle</mat-icon>
+                  <span>{{"ADD"|translate}}</span>
+                </div>
               </mat-chip>
             }
             </div>

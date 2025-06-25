@@ -238,7 +238,13 @@ export class MainPlayerComponent implements OnInit {
 
   setLanguage(language: string) {
     let preferredLanguage = language ? language : "en"
-    this.translate.setTranslation(preferredLanguage, require(`../../assets/i18n/${preferredLanguage}.json`));
-    this.translate.setDefaultLang(preferredLanguage);
+    try{
+      this.translate.setTranslation(preferredLanguage, require(`../../assets/i18n/${preferredLanguage}.json`));
+      this.translate.setDefaultLang(preferredLanguage);
+      
+    }catch (error:any){
+      this.translate.setTranslation("en", require(`../../assets/i18n/en.json`));
+      this.translate.setDefaultLang("en");
+    }
   }
 }
