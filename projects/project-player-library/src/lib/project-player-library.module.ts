@@ -65,6 +65,7 @@ import { DialogInputComponent } from './shared/dialog-input/dialog-input.compone
 import { ProjectOperationComponent } from './pages/project-operation/project-operation.component';
 import { SelectDialogComponent } from './shared/select-dialog/select-dialog.component';
 import { ProjectEditDetailsComponent } from './pages/project-edit-details/project-edit-details.component';
+import { CertificateConfirmationPopupComponent } from './shared/certificate-confirmation-popup/certificate-confirmation-popup.component';
 
 const routes: Routes = [
   // { path: '' },
@@ -134,6 +135,7 @@ export function translateHttpLoaderFactory(httpClient: HttpClient) {
     ProjectOperationComponent,
     SelectDialogComponent,
     ProjectEditDetailsComponent,
+    CertificateConfirmationPopupComponent
   ],
   imports: [
     CommonModule,

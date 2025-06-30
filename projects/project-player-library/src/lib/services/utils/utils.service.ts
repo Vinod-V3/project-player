@@ -8,6 +8,7 @@ import { statusType } from '../../constants/statusConstants';
 import { DataService } from '../data/data.service';
 import { privacyPolicyPopupData, shareProjectPopupData } from '../../constants/dataConstants';
 import { PrivacyPolicyPopupComponent } from '../../shared/privacy-policy-popup/privacy-policy-popup.component';
+import { CertificateConfirmationPopupComponent } from '../../shared/certificate-confirmation-popup/certificate-confirmation-popup.component';
 
 @Injectable({
   providedIn: 'root'
@@ -188,6 +189,15 @@ export class UtilsService {
       status: "notStarted",
     };
     return metaData;
+  }
+
+  async showCertificateNamePopup(width?:any){
+    const dialogRef = this.dialog.open(CertificateConfirmationPopupComponent, {
+      width: width ? width : '400px',
+      minHeight:'150px',
+    });
+    let response = await firstValueFrom(dialogRef.afterClosed())
+    return response
   }
 
 }
