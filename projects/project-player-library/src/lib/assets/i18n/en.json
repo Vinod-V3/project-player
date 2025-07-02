@@ -179,5 +179,7 @@
     "CONFIRM_PROFILE_NAME": "Confirm profile name",
     "NAME_ON_CERT_MSG":"The name will be printed on your improvement certificate. Check if this is correct",
     "EDIT_FROM_PROFILE_MSG":"You may edit it from you profile page.",
-    "DO_NOT_SHOW_MSG":"Do not show this message again"
+    "DO_NOT_SHOW_MSG":"Do not show this message again",
+    "CERTIFICATE_GENERATING_WAIT_MSG":"Your project is submitted. You will receive a certificate soon if you meet the eligibility criteria.",
+    "CERTIFICATE_DOWNLOADING_MSG": "Certificate is getting downloaded"
 }
