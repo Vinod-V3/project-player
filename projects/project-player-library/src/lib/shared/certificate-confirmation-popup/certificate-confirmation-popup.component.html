@@ -1,0 +1,21 @@
+<mat-dialog-content>
+    <div class="dialog-header">
+        <h4 class="font-bold text-lg text-black">{{ "CONFIRM_PROFILE_NAME" | translate }}</h4>
+        <mat-icon fontIcon="close" class="self-center cursor-pointer" (click)="closePopup(false)"></mat-icon>
+    </div>
+    <img src="/ml/assets/images/certNameConfirm.png" alt="certificate-image" class="cert-image"/>
+    <div class="dialog-content">
+        <div>{{ "NAME_ON_CERT_MSG" | translate }}</div>
+        <div class="mt-3">{{ "EDIT_FROM_PROFILE_MSG" | translate }}</div>
+    </div>
+    <div class="flex flex-row">
+        <mat-checkbox value="{{isChecked}}" (change)="onCheckboxChange($event)" class="mr-3"></mat-checkbox>
+        <div class="self-center">{{ "DO_NOT_SHOW_MSG" | translate }}</div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div class="buttons">
+        <button mat-flat-button class="primary-button" (click)="editProfile()">{{ "EDIT" | translate }}</button>
+        <button mat-flat-button class="primary-button" (click)="start()">{{ "START_IMPROVEMENT" | translate }}</button>
+    </div>
+</mat-dialog-actions>

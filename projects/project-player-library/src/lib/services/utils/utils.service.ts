@@ -8,6 +8,7 @@ import { statusType } from '../../constants/statusConstants';
 import { DataService } from '../data/data.service';
 import { privacyPolicyPopupData, shareProjectPopupData } from '../../constants/dataConstants';
 import { PrivacyPolicyPopupComponent } from '../../shared/privacy-policy-popup/privacy-policy-popup.component';
+import { CertificateConfirmationPopupComponent } from '../../shared/certificate-confirmation-popup/certificate-confirmation-popup.component';
 
 @Injectable({
   providedIn: 'root'
@@ -188,6 +189,31 @@ export class UtilsService {
       status: "notStarted",
     };
     return metaData;
+  }
+
+  postMessageListener(data:any):Promise<boolean>{
+    return new Promise((resolve) => {
+      try {
+        if ((window as any).FlutterChannel) {
+          (window as any).FlutterChannel.postMessage(data);
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      } catch (err: any) {
+        console.error('FlutterChannel Error:', err);
+        resolve(false);
+      }
+    });
+  }
+
+  async showCertificateNamePopup(width?:any){
+    const dialogRef = this.dialog.open(CertificateConfirmationPopupComponent, {
+      width: width ? width : '400px',
+      minHeight:'150px',
+    });
+    let response = await firstValueFrom(dialogRef.afterClosed())
+    return response
   }
 
 }

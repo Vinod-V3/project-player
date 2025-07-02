@@ -1,0 +1,45 @@
+mat-dialog-actions {
+    width: 100%;
+    padding: 0 10px 15px 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  mat-dialog-content h4 {
+    margin: 0;
+    padding: 10px;
+  }
+
+  .buttons button {
+    border-radius: 20px;
+    box-shadow: 4px 4px rgba(128, 128, 128, 0.349);
+    display: inline;
+
+  }
+
+  .dialog-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  ::ng-deep .mdc-button {
+    min-width: 0 !important;
+  }
+
+  .dialog-header button{
+    width: 20px;
+    height: 20px;
+  }
+
+  mat-icon{
+    margin-right: 0px !important;
+  }
+
+  .dialog-content{
+    padding: 10px;
+  }
+
+  .cert-image{
+    height: 170px;
+  }
