@@ -19,6 +19,10 @@ export abstract class GenericFunctions {
     return await this.utils.showPopupWithCheckbox("projectShare")
   }
 
+  async showDialog(dialogData:any){
+    return await this.utils.showDialogPopup(dialogData)
+  }
+
   async showCertificatePopup(){
     return await this.utils.showCertificateNamePopup()
   }
