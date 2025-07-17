@@ -50,10 +50,27 @@
         </div>
             <div >
                 <mat-card-content class="item-content" >
+                    <div class="flex justify-between gap-2">
+                        @if (task.metaInformation.startDate) {
+                            <div class="flex flex-col">
+                            <h4 class="text-sm font-bold">{{ "PLANNED_START_DATE" | translate }}</h4>
+                            <h5 >{{ task.metaInformation.startDate }}</h5>
+                            </div>
+                        }
+                        <span class="flex items-center justify-center ">
+                            <mat-icon class="text-gray-700 font-">arrow_forward</mat-icon>
+                        </span>
+                        @if (task.metaInformation.endDate) {
+                            <div class="flex flex-col">
+                            <h4 class="text-sm font-bold">{{ "PLANNED_END_DATE" | translate }}</h4>
+                            <h5 >{{ task.metaInformation.endDate }}</h5>
+                            </div>
+                        }
+                    </div>
                     <h5>
                         {{statusLabels[task.status]}}
                     </h5>
-                    <h5>{{"END_DATE"|translate}}: {{ (task.endDate) ? (task.endDate | date : 'MMM dd, YYYY') : '_' }}</h5>
+                    <h5>{{"ACTUAL_END_DATE"|translate}}: {{ (task.endDate) ? (task.endDate | date : 'MMM dd, YYYY') : '_' }}</h5>
                         <div class="w-full flex justify-end">
                             <ng-content ></ng-content>
                         </div>

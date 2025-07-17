@@ -181,5 +181,9 @@
     "EDIT_FROM_PROFILE_MSG":"You may edit it from you profile page.",
     "DO_NOT_SHOW_MSG":"Do not show this message again",
     "CERTIFICATE_GENERATING_WAIT_MSG":"Your project is submitted. You will receive a certificate soon if you meet the eligibility criteria.",
-    "CERTIFICATE_DOWNLOADING_MSG": "Certificate is getting downloaded"
+    "CERTIFICATE_DOWNLOADING_MSG": "Certificate is getting downloaded",
+    "PLANNED_START_DATE":"Planned end date",
+    "PLANNED_END_DATE":"Planned start date",
+    "ACTUAL_END_DATE":"Actual end date",
+    "START_REFLECTION":"Start reflection"
 }

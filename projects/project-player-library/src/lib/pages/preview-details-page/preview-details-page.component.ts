@@ -173,4 +173,6 @@ export class PreviewDetailsPageComponent {
     let data = { ...this.projectDetails, ...this.stateData }
     this.strategy.start(data)
   }
+
+  onFeedback(){}
 }

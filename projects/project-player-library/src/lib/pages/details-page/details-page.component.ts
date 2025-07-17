@@ -304,7 +304,7 @@ export class DetailsPageComponent implements OnInit {
   getAssessmentTypeTaskIds(){
     const taskIdsList = []
     for(const task of this.tasksList){
-      task.type == "assessment" || task.type == "observation" ? taskIdsList.push(task._id) : null
+      task.type == "assessment" || task.type == "observation" || task.type == "External-integration" ? taskIdsList.push(task._id) : null
     }
     return taskIdsList
   }
@@ -312,20 +312,27 @@ export class DetailsPageComponent implements OnInit {
   updateAssessmentStatus(assessmentList:any){
     let isChanged = false
     this.projectDetails.tasks.map((taskData:any)=>{
-      assessmentList.map((data:any)=>{
-        if(data.type == "assessment" || data.type == "observation"){
-          if(data._id == taskData._id && data.submissionDetails.status){
-            if(!taskData.submissionDetails || JSON.stringify(taskData.submissionDetails) != JSON.stringify(data.submissionDetails)){
-              taskData.submissionDetails = data.submissionDetails
-              taskData.status = data.submissionDetails.status
-              taskData.isEdit = true
+      assessmentList.map((data: any) => {
+        const isSameTask = data._id === taskData._id;
+        if ((data.type === "assessment" || data.type === "observation") && isSameTask && data.submissionDetails?.status) {
+          const isSubmissionChanged = !taskData.submissionDetails ||
+            JSON.stringify(taskData.submissionDetails) !== JSON.stringify(data.submissionDetails);
+          if (isSubmissionChanged) {
+            taskData.submissionDetails = data.submissionDetails;
+            taskData.status = data.submissionDetails.status;
+            taskData.isEdit = true;
+          }
+        }
+        if (data.type === "External-integration" && isSameTask && data.status) {
+          taskData.status = data.status;
+          taskData.isEdit = true;
+        }
+        if (taskData.isEdit) {
               isChanged = true
               this.projectDetails.isEdit = true
               this.countCompletedTasks();
               this.calculateProgress();
               this.setActionsList()
-            }
-          }
         }
       })
     })
@@ -336,6 +343,10 @@ export class DetailsPageComponent implements OnInit {
       }
       this.db.updateData(finalData)
     }
+  }
+    onFeedback(task:any){
+    let accToken = localStorage.getItem('accToken');
+    window.location.href = `${task.metaInformation.redirectLink}${accToken}&taskId=${task._id}&projectId=${this.projectDetails._id}`;
   }
 
   onTabChange(tabIndex:any){
