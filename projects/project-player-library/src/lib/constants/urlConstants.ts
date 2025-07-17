@@ -13,7 +13,7 @@ export const apiUrls = {
     LEARNING_RESOURCE:"",
     ADD_PROJECT: "",
     START_ASSESSMENT: "project/v1/userProjects/solutionDetails/",
-    GET_TEMPLATE_BY_EXTERNAL_ID: "",
+    GET_TEMPLATE_BY_EXTERNAL_ID: "project/v1/project/templates/details",
     CERTIFICATE_URL:"",
     CLOUD_UPLOAD: ""
 }
