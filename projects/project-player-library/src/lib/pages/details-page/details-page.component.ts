@@ -350,6 +350,10 @@ export class DetailsPageComponent implements OnInit {
     }
   }
     onFeedback(task:any){
+    if(!this.isOnline){
+          this.toasterService.showToast("OFFLINE_MSG",'danger')
+          return
+        }
     let accToken = this.dataService.getConfig().accessToken;
     window.location.href = `${task.metaInformation.redirectLink}${accToken}&taskId=${task._id}&projectId=${this.projectDetails._id}`;
   }
