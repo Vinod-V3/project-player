@@ -10,6 +10,7 @@ import { ProjectService } from '../../services/project/project.service';
 import { apiUrls } from '../../constants/urlConstants';
 import { ApiService } from '../../services/api/api.service';
 import { NetworkServiceService } from 'network-service';
+import { DataService } from '../../services/data/data.service';
 
 @Component({
   selector: 'lib-details-page',
@@ -33,7 +34,8 @@ export class DetailsPageComponent implements OnInit {
   statusConstant = statusType
 
   constructor(private routerService: RoutingService, private db: DbService,
-    private toasterService:ToastService, private utils: UtilsService, private projectService: ProjectService, private apiService: ApiService, private router: Router,private network:NetworkServiceService
+    private toasterService:ToastService, private utils: UtilsService, private projectService: ProjectService, private apiService: ApiService, private router: Router,private network:NetworkServiceService,
+    private dataService: DataService
   ) {
     this.network.isOnline$.subscribe((status)=>{
       this.isOnline=status
@@ -324,8 +326,11 @@ export class DetailsPageComponent implements OnInit {
           }
         }
         if (data.type === "External-integration" && isSameTask && data.status) {
+          const isStatusChanged = taskData.status !== data.status;
+          if (isStatusChanged) {
           taskData.status = data.status;
           taskData.isEdit = true;
+          }
         }
         if (taskData.isEdit) {
               isChanged = true
@@ -345,7 +350,7 @@ export class DetailsPageComponent implements OnInit {
     }
   }
     onFeedback(task:any){
-    let accToken = localStorage.getItem('accToken');
+    let accToken = this.dataService.getConfig().accessToken;
     window.location.href = `${task.metaInformation.redirectLink}${accToken}&taskId=${task._id}&projectId=${this.projectDetails._id}`;
   }
 

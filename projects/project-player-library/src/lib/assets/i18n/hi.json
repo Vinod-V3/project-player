@@ -182,8 +182,8 @@
     "DO_NOT_SHOW_MSG": "यह संदेश दोबारा न दिखाएं",
     "CERTIFICATE_GENERATING_WAIT_MSG": "आपकी परियोजना जमा कर दी गई है। यदि आप पात्रता मानदंडों को पूरा करते हैं, तो आपको जल्द ही प्रमाणपत्र प्राप्त होगा।",
     "CERTIFICATE_DOWNLOADING_MSG": "प्रमाण पत्र डाउनलोड हो रहा है",
-    "PLANNED_START_DATE":"नियोजित समाप्ति तिथि",
-    "PLANNED_END_DATE":"नियोजित आरंभ तिथि",
+    "PLANNED_START_DATE":"नियोजित आरंभ तिथि",
+    "PLANNED_END_DATE":"नियोजित समाप्ति तिथि",
     "ACTUAL_END_DATE":"वास्तविक समाप्ति तिथि",
     "START_REFLECTION":"प्रतिबिंबन प्रारंभ करें"
 }
