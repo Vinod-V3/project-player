@@ -167,7 +167,7 @@ export class TaskDetailsPageComponent extends BackNavigationHandlerComponent imp
   }
 
   checkIsDisabled(){
-    const specialTypeArray = ["assessment", "observation"]
+    const specialTypeArray = ["assessment", "observation","External-integration"];
     this.isDisabled = specialTypeArray.includes(this.task?.type) || (this.task?.children?.length > 0)
   }
 }

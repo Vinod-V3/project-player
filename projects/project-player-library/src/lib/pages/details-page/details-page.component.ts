@@ -10,6 +10,7 @@ import { ProjectService } from '../../services/project/project.service';
 import { apiUrls } from '../../constants/urlConstants';
 import { ApiService } from '../../services/api/api.service';
 import { NetworkServiceService } from 'network-service';
+import { DataService } from '../../services/data/data.service';
 
 @Component({
   selector: 'lib-details-page',
@@ -33,7 +34,8 @@ export class DetailsPageComponent implements OnInit {
   statusConstant = statusType
 
   constructor(private routerService: RoutingService, private db: DbService,
-    private toasterService:ToastService, private utils: UtilsService, private projectService: ProjectService, private apiService: ApiService, private router: Router,private network:NetworkServiceService
+    private toasterService:ToastService, private utils: UtilsService, private projectService: ProjectService, private apiService: ApiService, private router: Router,private network:NetworkServiceService,
+    private dataService: DataService
   ) {
     this.network.isOnline$.subscribe((status)=>{
       this.isOnline=status
@@ -304,7 +306,7 @@ export class DetailsPageComponent implements OnInit {
   getAssessmentTypeTaskIds(){
     const taskIdsList = []
     for(const task of this.tasksList){
-      task.type == "assessment" || task.type == "observation" ? taskIdsList.push(task._id) : null
+      task.type == "assessment" || task.type == "observation" || task.type == "External-integration" ? taskIdsList.push(task._id) : null
     }
     return taskIdsList
   }
@@ -312,20 +314,30 @@ export class DetailsPageComponent implements OnInit {
   updateAssessmentStatus(assessmentList:any){
     let isChanged = false
     this.projectDetails.tasks.map((taskData:any)=>{
-      assessmentList.map((data:any)=>{
-        if(data.type == "assessment" || data.type == "observation"){
-          if(data._id == taskData._id && data.submissionDetails.status){
-            if(!taskData.submissionDetails || JSON.stringify(taskData.submissionDetails) != JSON.stringify(data.submissionDetails)){
-              taskData.submissionDetails = data.submissionDetails
-              taskData.status = data.submissionDetails.status
-              taskData.isEdit = true
+      assessmentList.map((data: any) => {
+        const isSameTask = data._id === taskData._id;
+        if ((data.type === "assessment" || data.type === "observation") && isSameTask && data.submissionDetails?.status) {
+          const isSubmissionChanged = !taskData.submissionDetails ||
+            JSON.stringify(taskData.submissionDetails) !== JSON.stringify(data.submissionDetails);
+          if (isSubmissionChanged) {
+            taskData.submissionDetails = data.submissionDetails;
+            taskData.status = data.submissionDetails.status;
+            taskData.isEdit = true;
+          }
+        }
+        if (data.type === "External-integration" && isSameTask && data.status) {
+          const isStatusChanged = taskData.status !== data.status;
+          if (isStatusChanged) {
+          taskData.status = data.status;
+          taskData.isEdit = true;
+          }
+        }
+        if (taskData.isEdit) {
               isChanged = true
               this.projectDetails.isEdit = true
               this.countCompletedTasks();
               this.calculateProgress();
               this.setActionsList()
-            }
-          }
         }
       })
     })
@@ -336,6 +348,14 @@ export class DetailsPageComponent implements OnInit {
       }
       this.db.updateData(finalData)
     }
+  }
+    onFeedback(task:any){
+    if(!this.isOnline){
+          this.toasterService.showToast("OFFLINE_MSG",'danger')
+          return
+        }
+    let accToken = this.dataService.getConfig().accessToken;
+    window.location.href = `${task.metaInformation.redirectLink}${accToken}&taskId=${task._id}&projectId=${this.projectDetails._id}`;
   }
 
   onTabChange(tabIndex:any){

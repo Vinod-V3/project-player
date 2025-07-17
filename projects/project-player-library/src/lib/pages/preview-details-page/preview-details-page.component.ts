@@ -81,7 +81,7 @@ export class PreviewDetailsPageComponent {
     let config = {
       url: `${apiUrls.GET_TEMPLATE_BY_EXTERNAL_ID}/${this.stateData.externalId}`
     }
-    this.apiService.post(config).subscribe({
+    this.apiService.get(config).subscribe({
       next: (response:any) => {
         this.projectDetails = response.result;
         this.setActionsList();
@@ -173,4 +173,6 @@ export class PreviewDetailsPageComponent {
     let data = { ...this.projectDetails, ...this.stateData }
     this.strategy.start(data)
   }
+
+  onFeedback(){}
 }
