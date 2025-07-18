@@ -201,7 +201,13 @@ export class CertificatePageComponent extends BackNavigationHandlerComponent {
     ctx?.drawImage(img, 0, 0, width, height);
 
     let finalDataUrl:any
-  
+
+    const v = Canvg.fromString(ctx, svgString,{
+      ignoreAnimation: true,
+      ignoreMouse: true
+    });
+    await v.render();
+
     if(type == "png"){
       finalDataUrl = canvas.toDataURL('image/png');
       URL.revokeObjectURL(url);
