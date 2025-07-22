@@ -355,7 +355,8 @@ export class DetailsPageComponent implements OnInit {
           return
         }
     let accToken = this.dataService.getConfig().accessToken;
-    window.location.href = `${task.metaInformation.redirectLink}&accToken=${accToken}&taskId=${task._id}&projectId=${this.projectDetails._id}`;
+    let currentUrl = window.location.href;
+    window.location.href = `${task.metaInformation.redirectLink}&accToken=${accToken}&taskId=${task._id}&projectId=${this.projectDetails._id}&rerouteUrl=${currentUrl}`;
   }
 
   onTabChange(tabIndex:any){
