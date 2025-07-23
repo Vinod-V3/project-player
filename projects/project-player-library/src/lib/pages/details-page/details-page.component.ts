@@ -306,7 +306,7 @@ export class DetailsPageComponent implements OnInit {
   getAssessmentTypeTaskIds(){
     const taskIdsList = []
     for(const task of this.tasksList){
-      task.type == "assessment" || task.type == "observation" || task.type == "External-integration" ? taskIdsList.push(task._id) : null
+      task.type == "assessment" || task.type == "observation" || task.type == "reflection" ? taskIdsList.push(task._id) : null
     }
     return taskIdsList
   }
@@ -325,7 +325,7 @@ export class DetailsPageComponent implements OnInit {
             taskData.isEdit = true;
           }
         }
-        if (data.type === "External-integration" && isSameTask && data.status) {
+        if (data.type === "reflection" && isSameTask && data.status) {
           const isStatusChanged = taskData.status !== data.status;
           if (isStatusChanged) {
           taskData.status = data.status;
