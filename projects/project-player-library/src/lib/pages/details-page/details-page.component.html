@@ -82,7 +82,7 @@
               <lib-task-card [actionsList]="actionsList" [task]="item" [submittedImprovement]="submitted" (newItemEvent)="taskCardAction($event)" [projectId]="projectDetails._id">
                 <div>
                   <ng-container *ngIf="item">
-                  @if (item.type !== "External-integration") {
+                  @if (item.type !== "reflection") {
                     <ng-container *ngIf="item.learningResources && item.learningResources.length > 0 && item.type !== 'observation'; else checkObservation">
                       <button (click)="$event.stopPropagation();onLearningResources(item._id,true)" class="primary-button task-buttons text-sm px-3 py-2 !rounded-3xl" mat-flat-button >
                         {{"VIEW_RESOURCES" | translate}}
