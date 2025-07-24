@@ -91,7 +91,7 @@
                   }
                   @else {
                     <ng-container >
-                      <button (click)="$event.stopPropagation();onFeedback(item)" class="primary-button task-buttons text-sm px-3 py-2 !rounded-3xl" mat-flat-button  [disabled]="item.status === statusConstant.completed">
+                      <button (click)="$event.stopPropagation();onFeedback(item)" class="task-buttons text-sm px-3 py-2 !rounded-3xl" mat-flat-button [ngClass]="{'primary-button': (item.status === statusConstant.notStarted),'disabled-button': (item.status === statusConstant.completed)}"  [disabled]="item.status === statusConstant.completed">
                         {{item.metaInformation.buttonLabel | translate}}
                       </button>
                     </ng-container>
