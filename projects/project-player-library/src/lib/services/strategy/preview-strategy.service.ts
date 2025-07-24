@@ -13,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export abstract class GenericFunctions {
   constructor(private utils: UtilsService, private apiService: ApiService, private db: DbService, private routerService: RoutingService,
-    private dataService: DataService, private toastService: ToastService, private translate: TranslateService
+    protected dataService: DataService, private toastService: ToastService, private translate: TranslateService
   ){}
   async showShareDataPopup() {
     return await this.utils.showPopupWithCheckbox("projectShare")
@@ -110,8 +110,13 @@ export class TargettedProjectFlow extends GenericFunctions {
         this.apiCallAndNavigate(apiConfig, projectData)
         return
       }
+      let hasProfileEdit = this.dataService.getConfig().hasProfileEdit;
+      if(hasProfileEdit){
       const response = await this.showCertificatePopup()
       if(!response) return
+      this.apiCallAndNavigate(apiConfig, projectData)
+        return
+      }
       this.apiCallAndNavigate(apiConfig, projectData)
     }else{
       this.apiCallAndNavigate(apiConfig, projectData)
