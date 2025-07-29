@@ -42,11 +42,9 @@ export class DetailsPageComponent implements OnInit {
     // const id = urlTree.queryParams['id'];
     // this.selectedTabIndex = urlTree.queryParams['tab'] || 0
     // this.getData(id)
-    console.log("constructor is called")
   }
 
   ngOnInit(): void {
-    console.log("Oninit is called")
     const urlTree: UrlTree = this.router.parseUrl(this.router.url);
     const id = urlTree.queryParams['id'];
     this.selectedTabIndex = urlTree.queryParams['tab'] || 0
@@ -253,7 +251,6 @@ export class DetailsPageComponent implements OnInit {
     let submissionDetails = data.submissionDetails
     let enableObserveAgain = !(data.status == statusType.completed)
     if(submissionDetails?.observationId){
-      console.log("navigate to obser")
       let path = `/managed-observation-portal/details/${submissionDetails?.observationId}/${submissionDetails?.entityId}/${enableObserveAgain}`
       this.routerService.navigateByHref(path)
     }else{

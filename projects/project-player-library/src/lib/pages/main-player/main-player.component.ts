@@ -120,7 +120,6 @@ export class MainPlayerComponent implements OnInit {
       this.projectData = urlQueryParams
     }
     if(this.utils.isLoggedIn()){
-      console.log("PROJECT DATA OUT: ",this.projectData)
       setTimeout(() => {
         if(this.projectData.referenceFrom == "certificate"){
           let urlQueryParams = this.getQueryParams(window.location.search)
@@ -132,7 +131,6 @@ export class MainPlayerComponent implements OnInit {
           return
         }
         if(this.projectData.referenceFrom == "observation"){
-          console.log("PROJECT DATA: ",this.projectData)
           this.routerService.navigate("/project-details",{ type:'template', ...this.projectData },{ replaceUrl:true })
           return
         }

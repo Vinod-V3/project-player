@@ -76,18 +76,15 @@ async showSyncSharePopup(type:string, name:string, project:any, taskId?:string){
       url: `${apiUrls.START_ASSESSMENT}${projectData._id}?taskId=${taskData._id}`,
       payload: profileInfo
     }
-    console.log("start assssment ap cal: ",apiConfig)
     try{
       const response = await firstValueFrom(this.apiService.post(apiConfig))
       const result = response?.result
-      console.log("get assessment api: ",result)
       localStorage.setItem("responseOne",JSON.stringify(result))
       if(!result){
         this.toastService.showToast("CANNOT_GET_PROJECT_DETAILS","danger")
         return
       }
       if(result.observationId){
-        console.log("Redirecting to observation submission page: ",result)
         let enableObserveAgain = !(result?.status == statusType.completed)
         let solutionDetails = result?.solutionDetails
         let path = `/managed-observation-portal/details/${result?.observationId}/${result?.entityId}/${solutionDetails?.allowMultipleAssessemts}`
