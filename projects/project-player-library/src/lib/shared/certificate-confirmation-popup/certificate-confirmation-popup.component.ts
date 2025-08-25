@@ -25,7 +25,7 @@ export class CertificateConfirmationPopupComponent {
   async editProfile(){
     const options = {
       type:"redirect",
-      pathType:"profile"
+      pathType:"profilePersonalInfo"
     };
     let response = await this.utils.postMessageListener(options)
     if(!response){
