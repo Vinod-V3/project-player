@@ -7,6 +7,7 @@ import { DbService } from '../db/db.service';
 import { RoutingService } from '../routing/routing.service';
 import { ToastService } from '../toast/toast.service';
 import { TranslateService } from '@ngx-translate/core';
+import { references } from '../../constants/referenceConstants';
 
 @Injectable({
   providedIn: 'root'
@@ -39,8 +40,14 @@ export abstract class GenericFunctions {
           this.translate.get(["PROJECT_AVAILABLE_UNDER_TAB_MSG",tab]).subscribe(data => {
             this.toastService.showToast(`${data["PROJECT_AVAILABLE_UNDER_TAB_MSG"]} ${data[tab]}`,"success")
           })
+        }else if(projectDetails.referenceFrom == references.observation){
+          this.toastService.showToast("ADD_PROJECTS_ACTIVE_LIST_MSG","success")
         }
         res.result.hasAcceptedTAndC = projectDetails.hasAcceptedTAndC
+        if(res.result?.categories.length){
+          res.result.categories = res.result.categories.map((data: any) => {
+            return { value: data?._id, ...data }})
+        }
         let data = {
           key: res.result._id,
           data: res.result

@@ -121,11 +121,14 @@ export class SelectDialogComponent implements OnInit {
   // Supports both single and multi-select modes
   isItemSelected(item: any): boolean {
     if (!item || !this.selectedValue) return false;
-    const key = item.node_id ? 'node_id' : item._id ? '_id' : 'id';
+    const key = item.id ? 'id' : item._id ? '_id' : 'node_id';
 
     if (this.isMultiSelect) {
-      return Array.isArray(this.selectedValue) &&
+      let isSelectedCheckOne = Array.isArray(this.selectedValue) &&
         this.selectedValue.some(i => i && i[key] === item[key]);
+      let isSelectedCheckTwo = Array.isArray(this.selectedValue) &&
+        this.selectedValue.some(i => i && i[key] === item['identifier']);
+      return Array.isArray(this.selectedValue) && (isSelectedCheckOne || isSelectedCheckTwo)
     } else {
       return !Array.isArray(this.selectedValue) &&
         this.selectedValue &&

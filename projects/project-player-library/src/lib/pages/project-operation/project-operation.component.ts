@@ -124,7 +124,10 @@ async openLearningResourceDialog(){
   }
   const result = await this.openDialog(data);
   if (result) {
-    this.selectedLearningResource = result;
+    let formattedData = result.map((data: any)=>{
+      return { name: data.name, id: data.identifier || data. id, node_id: data.node_id }
+    })
+    this.selectedLearningResource = formattedData;
   }
 }
 
