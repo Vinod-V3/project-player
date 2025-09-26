@@ -195,6 +195,10 @@ export class MainPlayerComponent implements OnInit {
           },1000);
           return
         }
+        if(res.result?.categories.length){
+          res.result.categories = res.result.categories.map((data: any) => {
+            return { value: data?._id, ...data }})
+        }
         this.projectDetails = res.result;
         if(this.projectDetails){
           let data = {
