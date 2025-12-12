@@ -177,7 +177,7 @@ async viewProject() {
       startDate: this.startDate ? this.startDate : null,
       endDate: this.endDate ? this.endDate : null,
       programName: this.selectedProgram?.name ? this.selectedProgram?.name : "",
-      programId: this.selectedProgram?.id ? this.selectedProgram?.id : "",
+      programId: this.selectedProgram?._id ? this.selectedProgram?._id : "",
       entityId: this.selectedEntity?._id ? this.selectedEntity?._id : "",
       entityName: this.selectedEntity?.name ? this.selectedEntity?.name : "",
       learningResources: this.selectedLearningResource?.length ? this.selectedLearningResource : []
