@@ -6,6 +6,7 @@ import { ApiService } from '../../services/api/api.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { learningResourcePayloadRequest } from '../../constants/dataConstants';
+import { DataService } from '../../services/data/data.service';
 
 @Component({
   selector: 'lib-select-dialog',
@@ -34,7 +35,8 @@ export class SelectDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     private dialogRef: MatDialogRef<SelectDialogComponent>,
     private dialog: MatDialog,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private dataService: DataService
   ) {}
 
   // Initialize component state and values from injected dialogData
@@ -224,7 +226,7 @@ export class SelectDialogComponent implements OnInit {
     }
 
     if (this.type === 'entity') {
-      const profileData = JSON.parse(localStorage.getItem('profileData') || '{}');
+      const profileData = this.dataService.getConfig().profileInfo;
 
       const config = {
         url: `${apiUrls.ENTITIES}/${profileData?.state}?type=${filter?.value || ''}&search=${searchText}&page=${this.page}&limit=${this.limit}`,

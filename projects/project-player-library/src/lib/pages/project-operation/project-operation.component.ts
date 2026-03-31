@@ -202,11 +202,7 @@ async viewProject() {
 
 // Fetches sub-entities based on the logged-in user's state and role
 async getSubentities(): Promise<any[]> {
-  const profileDataString = localStorage.getItem('profileData');
-  let profileData: { state?: string, role?: string } | null = null;
-  if (profileDataString) {
-    profileData = JSON.parse(profileDataString);
-  }
+  const profileData = this.dataService.getConfig().profileInfo;
   const configForSubentity = {
     url: `${apiUrls.SUB_ENTITY}${profileData?.state}?role=${profileData?.role}`,
     payload: {}
